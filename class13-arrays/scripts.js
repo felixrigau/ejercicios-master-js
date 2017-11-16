@@ -66,10 +66,6 @@ function oddAndEvenRandomNumbers() {
     console.log(evens);
 }
 
-function test () {
-	oddAndEvenRandomNumbers()
-}
-
 // 3 - Vamos a gestionar la lista de asistentes de un evento.
 
 // Características:
@@ -83,53 +79,38 @@ function test () {
 // Verifica antes de asignar un asistente que no se registro previamente.
 
 var Event = {
-
-    listParticipants : [],
-
-    removeParticipant: function (name) {
-
-        var position = listParticipants.indexOf(name);
-
-        if (position !== -1) {
-
-            listParticipants[position] = "";
-
-        } else {
-
-            console.log("El participante no existe!");
-
-        }
-
-    },
-
-    addParticipant: function (name) {
-
-        if(listParticipants.length != 0){
-
-            if(listParticipants.indexOf(name) == -1){
-
-                var position = listParticipants.indexOf("");
-
-                if (position === -1) {
-
-                    listParticipants[position] = name;
-
-                } else {
-
-                    listParticipants.push(name);
-
-                }
-
-                listParticipants.push(name);
-
-            }else{
-
-                console.log("Ya estás inscrito como participante");
-
-            }
-        }else{
-            listParticipants.push(name);
-        }
-
+  listParticipants: [],
+  removeParticipant: function(name) {
+    var position = this.listParticipants.indexOf(name);
+    if (position !== -1) {
+      this.listParticipants[position] = "";
+      console.log("The participant has been successfully removed");
+      console.log(this.listParticipants.toString());
+    } else {
+      console.log("OH! The participant don't exist!");
     }
+  },
+
+  addParticipant: function(name) {
+    if (this.listParticipants.length != 0) {
+      if (this.listParticipants.indexOf(name) == -1) { // this conditional checks if the participant is registed already
+        var position = this.listParticipants.indexOf("");
+        if (position == -1) {
+          this.listParticipants.push(name);
+          console.log("The participant has been successfully registed");
+          console.log(this.listParticipants.toString());
+        } else {
+          this.listParticipants[position] = name;
+          console.log("The participant has been successfully registed");
+          console.log(this.listParticipants.toString());
+        }
+      } else {
+        console.log("The participant has been registed already");
+      }
+    } else {
+      this.listParticipants.push(name);
+      console.log("The participant has been successfully registed");
+      console.log(this.listParticipants.toString());
+    }
+  }
 };

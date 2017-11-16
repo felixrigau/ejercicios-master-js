@@ -3,40 +3,55 @@ button.addEventListener('click', function() {
   test();
 });
 
-//Devuelve un objeto con la diferencia en milisegundos entre dos fechas
-function diferenceBetweenTowDates(date1, date2){
-    date1 = date1.getTime();
-    date2 = date2.getTime();
-    var difference;
-    if(date1 > date2){
-      difference = date1 - date2;
-    }else {
-      difference = date2 - date1;
-    }
-    return difference;
-}
+var add = document.getElementById('add');
+add.addEventListener('click', function() {
+  var participant = prompt("Enter the name of the participant:");
+  Event.addParticipant(participant);
+});
 
-//Devuelve un objeto con la cantidad de secundos, minutos, horas, días.
-function getObjectDate(miliseconds) {
-    var date = {
-        "seconds":(miliseconds/1000).toFixed(),
-        "minutes":(miliseconds/1000/60).toFixed(),
-        "hours":(miliseconds/1000/60/60).toFixed(),
-        "days":(miliseconds/1000/60/60/24).toFixed()
-    };
-    return date;
-}
-
-//Solution
-
-function howLongForEndMaster(endDate) {
-  var today = new Date();
-  endDate = new Date(2018,5,25,19);
-  var miliseconds = diferenceBetweenTowDates(endDate, today);
-  var objectDate = getObjectDate(miliseconds);
-  console.log("Para finalizar el master faltan:\n"+miliseconds+" milisegundos"+"\n"+objectDate['hours']+" horas"+"\n"+objectDate['days']+" días")
-}
+var remove = document.getElementById('remove');
+remove.addEventListener('click', function() {
+  var participant = prompt("Enter the name of the participant:");
+  Event.removeParticipant(participant);
+});
 
 function test() {
 
 }
+
+var Event = {
+  listParticipants: [],
+  removeParticipant: function(name) {
+    var position = this.listParticipants.indexOf(name);
+    if (position !== -1) {
+      this.listParticipants[position] = "";
+      console.log("The participant has been successfully removed");
+      console.log(this.listParticipants.toString());
+    } else {
+      console.log("OH! The participant don't exist!");
+    }
+  },
+
+  addParticipant: function(name) {
+    if (this.listParticipants.length != 0) {
+      if (this.listParticipants.indexOf(name) == -1) { // this conditional checks if the participant is registed already
+        var position = this.listParticipants.indexOf("");
+        if (position == -1) {
+          this.listParticipants.push(name);
+          console.log("The participant has been successfully registed");
+          console.log(this.listParticipants.toString());
+        } else {
+          this.listParticipants[position] = name;
+          console.log("The participant has been successfully registed");
+          console.log(this.listParticipants.toString());
+        }
+      } else {
+        console.log("The participant has been registed already");
+      }
+    } else {
+      this.listParticipants.push(name);
+      console.log("The participant has been successfully registed");
+      console.log(this.listParticipants.toString());
+    }
+  }
+};
