@@ -93,13 +93,13 @@ var Event = {
 
   addParticipant: function(name) {
     if (this.listParticipants.length != 0) {
-      if (this.listParticipants.indexOf(name) == -1) { // this conditional checks if the participant is registed already
-        var position = this.listParticipants.indexOf("");
-        if (position == -1) {
+      if (this.listParticipants.indexOf(name) == -1) { // checks that the participant isn't already registed
+        var position = this.listParticipants.indexOf(""); // get the position of the first empty position
+        if (position == -1) { // if there are no empty positions push the participant into the list
           this.listParticipants.push(name);
           console.log("The participant has been successfully registed");
           console.log(this.listParticipants.toString());
-        } else {
+        } else { // else, I get the first empty position and insert it in.
           this.listParticipants[position] = name;
           console.log("The participant has been successfully registed");
           console.log(this.listParticipants.toString());
