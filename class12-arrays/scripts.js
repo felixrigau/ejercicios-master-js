@@ -2,8 +2,9 @@
 
 function countTimesAppears(phrase, character) {
     
-  var text = Array.prototype.slice.call(phrase);//Convertir el String en un Array
-  
+  //var text = Array.prototype.slice.call(phrase);//Convertir el String en un Array
+  var text = text.split("");
+
   var counter = 0;
   
   text.forEach(function(element) {
