@@ -1,6 +1,4 @@
-
-//1 - Junta estos tres Arrays ["Oscar", ...], [9897667, ...], [false, ...] de tal forma que construyan un único Array anidado [["Oscar", 9897667, false], [etc...]]
-
+// 1 - Junta estos tres Arrays ["Oscar", ...], [9897667, ...], [false, ...] de tal forma que construyan un único Array anidado [["Oscar", 9897667, false], [etc...]]
 
 // Variante (Diferentes longitudes)
 
@@ -44,28 +42,28 @@ function randomNumber() {
 
 function oddAndEvenRandomNumbers() {
 
-    console.log("Array con 100 numeros aleatorios.\n")
+    console.log("Array con 100 numeros aleatorios.\n");
     var numbers = new Array(100);
     for (var i = 0; i < numbers.length; i++) {
     	numbers[i] = randomNumber()
-    };
-    console.log(numbers)
+    }
+    console.log(numbers);
 
     //array con nuemros impares
-    console.log("Array con los numero pares.\n")
+    console.log("Array con los numero pares.\n");
     odds = numbers.filter(function(element) {
     	return element%2 != 0
-    })
+    });
     odds = odds.sort();
-    console.log(odds)
+    console.log(odds);
 
     //array con nuemros pares
-    console.log("Array con los numero pares.\n")
+    console.log("Array con los numero pares.\n");
     evens = numbers.filter(function(element) {
     	return element%2 == 0
-    })
+    });
     evens = evens.sort();
-    console.log(evens)
+    console.log(evens);
 }
 
 function test () {
@@ -84,55 +82,54 @@ function test () {
 
 // Verifica antes de asignar un asistente que no se registro previamente.
 
-function Event() {
+var Event = {
 
-    var listParticipants = [];
+    listParticipants : [],
 
-}
+    removeParticipant: function (name) {
 
-Event.prototype.removeParticipant = function (name) {
+        var position = listParticipants.indexOf(name);
 
-    var position = listParticipants.indexOf(name);
+        if (position !== -1) {
 
-    if (position !== -1) {
+            listParticipants[position] = "";
 
-        listParticipants[position] = "";
+        } else {
 
-    } else {
-
-        console.log("El participante no existe!")
-
-    }
-
-}
-
-Event.prototype.addParticipant = function (name) {
-
-    if(listParticipants.length != 0){
-
-        if(listParticipants.indexOf(name) == -1){
-
-            var position = listParticipants.indexOf("");
-
-            if (position === -1) {
-
-                listParticipants[position] = name;
-
-            } else {
-
-                listParticipants.push(name)
-
-            }
-
-            listParticipants.push(name)
-
-        }else{
-
-            console.log("Ya estás inscrito como participante")
+            console.log("El participante no existe!");
 
         }
-    }else{
-        listParticipants.push(name)
-    }
 
-}
+    },
+
+    addParticipant: function (name) {
+
+        if(listParticipants.length != 0){
+
+            if(listParticipants.indexOf(name) == -1){
+
+                var position = listParticipants.indexOf("");
+
+                if (position === -1) {
+
+                    listParticipants[position] = name;
+
+                } else {
+
+                    listParticipants.push(name);
+
+                }
+
+                listParticipants.push(name);
+
+            }else{
+
+                console.log("Ya estás inscrito como participante");
+
+            }
+        }else{
+            listParticipants.push(name);
+        }
+
+    }
+};
