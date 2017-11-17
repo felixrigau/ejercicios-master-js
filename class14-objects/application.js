@@ -1,24 +1,24 @@
-var Application = {
+(function () {
+  console.log("I'm ready!!!");
+})();
+
+var APPLICATION = APPLICATION || {
   users: {},
   product: {},
   VendingMachine: {
-
+    
   }
 
 };
 
-var Client = {
-  name: '',
-  nameUser: '',
-  password: '',
-  userType: '',
-  budget:0,
-  create: function(name,nameUser,password,userType,budget){
-    this.name = name;
-    this.nameUser = nameUser;
-    this.password = password;
-    this.userType = userType;
-    this.budget = budget;
-  },
-
+var Client = function Client(name, userName, password, userType, budget){
+  this.name = name;
+  this.userName = userName;
+  this.password = password;
+  this.userType = userType;
+  this.budget = budget;
 }
+
+Client.prototype.sayHello = function () {
+  console.log("Hello, my name's " + this.name);
+};
