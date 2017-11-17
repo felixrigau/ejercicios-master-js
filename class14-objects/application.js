@@ -39,6 +39,20 @@ var APPLICATION = APPLICATION || {
     }else {
       console.log(" We cannot to get the budget for "+userName);
     }
+  },
+
+  getClientExpenses: function (userName) {
+    var expensesList = false;
+    this.clientList.forEach(function (element,i,array) {
+      if(element.userName == userName){
+        expensesList = element.expenses;
+      }
+    });
+    if (expensesList) { //if expensesList is full, get in. Else expensesList is false because userName was not found
+      return expensesList;
+    } else {
+      return expensesList;
+    }
   }
 
 };
@@ -50,6 +64,7 @@ function Client(name, userName, password, userType, budget){
   this.userType = userType;
   this.budget = budget;
   this.logged = false;
+  this.expenses = [];
 }
 
 Client.prototype.sayHello = function () {
@@ -57,6 +72,11 @@ Client.prototype.sayHello = function () {
 };
 
 function Product(name, price){
+  this.name = name;
+  this.price = price;
+}
+
+function Expense(quantity, date){
   this.name = name;
   this.price = price;
 }
