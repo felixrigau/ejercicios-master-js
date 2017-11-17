@@ -13,9 +13,13 @@ var APPLICATION = APPLICATION || {
     if (exist) {
       console.log(userName+" is already registed.");
     } else {
-      var client = new Client(name, userName, password, userType, budget);
-      this.clientList.push(client);
-      console.log("The client: "+name+" was registed successfuly!");
+      if (name && userName && password && userType && budget) {
+        var client = new Client(name, userName, password, userType, budget);
+        this.clientList.push(client);
+        console.log("The client: "+name+" was registed successfuly!");
+      } else {
+        console.log("Upsss! You haven't registed all the necesary information!");
+      }
     }
   },
 
@@ -41,7 +45,7 @@ var APPLICATION = APPLICATION || {
         budget = element.budget;
       }
     });
-    if(position !== -1){
+    if(budget !== -1){
       return budget;
     }else {
       console.log(" We cannot to get the budget for "+userName);
