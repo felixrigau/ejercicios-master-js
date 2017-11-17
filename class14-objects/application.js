@@ -7,9 +7,16 @@ var APPLICATION = APPLICATION || {
   productList: [],
 
   createClient: function (name, userName, password, userType, budget) {
-    var client = new Client(name, userName, password, userType, budget);
-    this.clientList.push(client);
-    console.log("The client: "+name+" was registed successfuly!");
+    var exist = this.clientList.some(function (element, index, array) {
+      return element.userName == userName
+    });
+    if (exist) {
+      console.log(userName+" is already registed.");
+    } else {
+      var client = new Client(name, userName, password, userType, budget);
+      this.clientList.push(client);
+      console.log("The client: "+name+" was registed successfuly!");
+    }
   },
 
   removeClient: function (userName){
