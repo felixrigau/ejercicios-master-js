@@ -12,20 +12,34 @@ var APPLICATION = APPLICATION || {
     console.log("The client: "+name+" was registed successfuly!");
   },
 
-  removeClient: function (name){
+  removeClient: function (userName){
     var position = -1;
     this.clientList.forEach(function (element,i,array) {
-      if(element.name == name){
+      if(element.userName == userName){
         position = i;
       }
     });
     if(position !== -1){
       this.clientList.splice(position,1);
-      console.log("The client: "+name+" was removed successfuly!");
+      console.log("The client: "+userName+" was removed successfuly!");
     }else {
-      console.log(name+" isn't a client in this Vending Machine!");
+      console.log(userName+" isn't a client in this Vending Machine!");
     }
   },
+
+  getClientBudget: function (userName) {
+    var budget = -1;
+    this.clientList.forEach(function (element,i,array) {
+      if(element.userName == userName){
+        budget = element.budget;
+      }
+    });
+    if(position !== -1){
+      return budget;
+    }else {
+      console.log(" We cannot to get the budget for "+userName);
+    }
+  }
 
 };
 
