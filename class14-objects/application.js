@@ -5,12 +5,12 @@
 var APPLICATION = APPLICATION || {
   clientList: [],
   productList: [],
-  loggingMode:true,// active the logging option
+  loggingMode:false,// active the logging option
 
   //Client Management
   createClient: function (name, userName, password, userType, budget) {
     var passwordAdmin;
-    if(loggingMode){
+    if(this.loggingMode){
       passwordAdmin = prompt("Please, enter your password to perform the next operation:");
     }else {
       passwordAdmin = "ficticiaMola";
@@ -39,7 +39,7 @@ var APPLICATION = APPLICATION || {
 
   removeClient: function (userName){
     var passwordAdmin;
-    if(loggingMode){
+    if(this.loggingMode){
       passwordAdmin = prompt("Please, enter your password to perform the next operation:");
     }else {
       passwordAdmin = "ficticiaMola";
@@ -64,7 +64,7 @@ var APPLICATION = APPLICATION || {
 
   getClient:function (userName) {
     var passwordAdmin;
-    if(loggingMode){
+    if(this.loggingMode){
       passwordAdmin = prompt("Please, enter your password to perform the next operation:");
     }else {
       passwordAdmin = "ficticiaMola";
@@ -87,7 +87,7 @@ var APPLICATION = APPLICATION || {
   verifyCredentialsClient:function (userName, password) {
     var client = this.getClient(userName);
     if (client) {
-      if (client.password === "password") {
+      if (client.password === password) {
         return client;
       } else {
         return false;
@@ -100,7 +100,7 @@ var APPLICATION = APPLICATION || {
 
   getClientBudget: function (userName) {
     var passwordAdmin;
-    if(loggingMode){
+    if(this.loggingMode){
       passwordAdmin = prompt("Please, enter your password to perform the next operation:");
     }else {
       passwordAdmin = "ficticiaMola";
@@ -124,7 +124,7 @@ var APPLICATION = APPLICATION || {
 
   getClientExpenses: function (userName) {
     var passwordAdmin;
-    if(loggingMode){
+    if(this.loggingMode){
       passwordAdmin = prompt("Please, enter your password to perform the next operation:");
     }else {
       passwordAdmin = "ficticiaMola";
@@ -147,9 +147,9 @@ var APPLICATION = APPLICATION || {
   },
 
   //Product Management
-  createProduct: function (name, price) {
+  createProduct: function (name, code, price) {
     var passwordAdmin;
-    if(loggingMode){
+    if(this.loggingMode){
       passwordAdmin = prompt("Please, enter your password to perform the next operation:");
     }else {
       passwordAdmin = "ficticiaMola";
@@ -162,7 +162,7 @@ var APPLICATION = APPLICATION || {
         console.log("This product is already registed.");
       } else {
         if (name && price) {
-          var product = new Product(name, price);
+          var product = new Product(name, code, price);
           this.productList.push(product);
           console.log("The product: "+name+" was registed successfuly!");
         } else {
@@ -176,7 +176,7 @@ var APPLICATION = APPLICATION || {
 
   removeProduct: function (productName) {
     var passwordAdmin;
-    if(loggingMode){
+    if(this.loggingMode){
       passwordAdmin = prompt("Please, enter your password to perform the next operation:");
     }else {
       passwordAdmin = "ficticiaMola";
@@ -201,7 +201,7 @@ var APPLICATION = APPLICATION || {
 
   addUnitsProduct: function (productName, quantity) {
     var passwordAdmin;
-    if(loggingMode){
+    if(this.loggingMode){
       passwordAdmin = prompt("Please, enter your password to perform the next operation:");
     }else {
       passwordAdmin = "ficticiaMola";
@@ -266,18 +266,22 @@ var APPLICATION = APPLICATION || {
   showStockProducts: function () {
     var userName = prompt("Please, enter your user name:");
     var password = prompt("Please, enter your password:");
-    var client = verifyCredentialsClient(userName, password);
+    var client = this.verifyCredentialsClient(userName, password);
     if (client) {
       if (client.userType == "admin") {
         var disponibity;
         var date = new Date();
         date = date.toLocaleString("es-ES",{dayWeek:"long",day:"numeric",month:"long", year:"numeric",hour:"numeric",minute:"numeric"});
         console.log("********** STOCK VENDING MACHINE ***********\t" + date +"\n\n");
-        console.log("" + "\t" + "PRODUCTO\t" + "CÓDIGO\t" + "CANTIDAD\t" + "DISPONIBILIDAD");
-        this.productList.forEach(function (product,i,array) {
-          disponibity = product.quantity > 0? "SI": "NO";
-          console.log(i + ".\t" + product.name + "\t" + product.code.toUpperCase()+ "\t" + product.quantity + "\t" + disponibity);
+        var productStockList = this.productList.map(function (product) {
+          var stockProduct = {};
+          stockProduct.Nombre = product.name;
+          stockProduct.Código = product.code.toUpperCase();
+          stockProduct.Cantidad = product.quantity;
+          stockProduct.Disponibilidad = product.quantity > 0? "SI": "NO";
+          return stockProduct;
         });
+        console.table(productStockList);
         return true;
       } else {
         console.log("You haven't the admin privileges, so you may not to perfom this operation");
@@ -338,8 +342,28 @@ function Expense(quantity, productName, date){
   this.name = name;
 }
 
+var product = new Product("CocaCola", "COC", 1);
+product.quantity = 34;
+APPLICATION.productList.push(product);
+product = new Product("Patatas fritas", "PAF", 0.50);
+product.quantity = 25;
+APPLICATION.productList.push(product);
+
+product = new Product("Fanta Naranja", "FAN", 1);
+product.quantity = 36;
+APPLICATION.productList.push(product);
+
+product = new Product("Agua", "AGU", 0.80);
+product.quantity = 40;
+APPLICATION.productList.push(product);
+
+product = new Product("CACAHUATES SALADOS", "CAS", 1.50);
+product.quantity = 25;
+APPLICATION.productList.push(product);
+
+
 // var passwordAdmin;
-// if(loggingMode){
+// if(this.loggingMode){
 //   passwordAdmin = prompt("Please, enter your password to perform the next operation:");
 // }else {
 //   passwordAdmin = "ficticiaMola";
