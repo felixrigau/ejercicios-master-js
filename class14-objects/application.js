@@ -258,8 +258,9 @@ Client.prototype.resetBudget = function () {
   return true;
 };
 
-function Product(name, price){
+function Product(name, code, price){
   this.name = name;
+  this.code = code;
   this.price = price;
   this.quantity = 0;
 }
@@ -269,8 +270,6 @@ function Expense(quantity, productName, date){
   this.productName = productName;
   this.name = name;
 }
-
-// Falta hacer el paso 5 y el 6
 
 // var passwordAdmin = prompt("Please, enter your password to perform the next operation:");
 // if (passwordAdmin == "ficticiaMola") { // Verify that the user has admin permissions
