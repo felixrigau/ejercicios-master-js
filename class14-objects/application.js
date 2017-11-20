@@ -203,7 +203,6 @@ var APPLICATION = APPLICATION || {
       var product = verifyUnitsOfProduct(productName);
       if (product) {
         if (client.budget >= product.price) {
-          //TODO
           //To add an expense to client's expenses list
           var expense = Expense(product.price, product.name, new Date());
           client.expenses.push(expense);
@@ -235,8 +234,28 @@ function Client(name, userName, password, userType, budget){
   this.expenses = [];
 }
 
-Client.prototype.sayHello = function () {
-  console.log("Hello, my name's " + this.name);
+Client.prototype.addBudget = function (quantity) {
+    if (quantity && typeof quantity === "number") {
+      this.budget += quantity;
+      return true;
+    } else {
+      return false;
+    }
+};
+
+Client.prototype.removeBudget = function (quantity) {
+  if (quantity && typeof quantity === "number" && this.budget >= quantity) {
+    this.budget-= quantity;
+    return true;
+  } else {
+    return false;
+  }
+    this.budget += quantity;
+};
+
+Client.prototype.resetBudget = function () {
+  this.budget = 0;
+  return true;
 };
 
 function Product(name, price){
