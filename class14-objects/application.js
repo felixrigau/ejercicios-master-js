@@ -5,10 +5,16 @@
 var APPLICATION = APPLICATION || {
   clientList: [],
   productList: [],
+  loggingMode:true,// active the logging option
 
   //Client Management
   createClient: function (name, userName, password, userType, budget) {
-    var passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+    var passwordAdmin;
+    if(loggingMode){
+      passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+    }else {
+      passwordAdmin = "ficticiaMola";
+    }
     if (passwordAdmin == "ficticiaMola") { // Verify that the user has admin permissions
       var exist = this.clientList.some(function (element, index, array) {
         return element.userName == userName;
@@ -32,7 +38,12 @@ var APPLICATION = APPLICATION || {
   },
 
   removeClient: function (userName){
-    var passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+    var passwordAdmin;
+    if(loggingMode){
+      passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+    }else {
+      passwordAdmin = "ficticiaMola";
+    }
     if (passwordAdmin == "ficticiaMola") { // Verify that the user has admin permissions
       var position = -1;
       this.clientList.forEach(function (element,i,array) {
@@ -52,7 +63,12 @@ var APPLICATION = APPLICATION || {
   },
 
   getClient:function (userName) {
-    var passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+    var passwordAdmin;
+    if(loggingMode){
+      passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+    }else {
+      passwordAdmin = "ficticiaMola";
+    }
     if (passwordAdmin == "ficticiaMola") { // Verify that the user has admin permission
       var client = this.clientList.filter(function (element,i,array) {
         return element.userName === userName;
@@ -83,7 +99,12 @@ var APPLICATION = APPLICATION || {
   },
 
   getClientBudget: function (userName) {
-    var passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+    var passwordAdmin;
+    if(loggingMode){
+      passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+    }else {
+      passwordAdmin = "ficticiaMola";
+    }
     if (passwordAdmin == "ficticiaMola") { // Verify that the user has admin permissions
       var budget = -1;
       this.clientList.forEach(function (element,i,array) {
@@ -102,7 +123,12 @@ var APPLICATION = APPLICATION || {
   },
 
   getClientExpenses: function (userName) {
-    var passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+    var passwordAdmin;
+    if(loggingMode){
+      passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+    }else {
+      passwordAdmin = "ficticiaMola";
+    }
     if (passwordAdmin == "ficticiaMola") { // Verify that the user has admin permissions
       var expensesList = false;
       this.clientList.forEach(function (element,i,array) {
@@ -122,7 +148,12 @@ var APPLICATION = APPLICATION || {
 
   //Product Management
   createProduct: function (name, price) {
-    var passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+    var passwordAdmin;
+    if(loggingMode){
+      passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+    }else {
+      passwordAdmin = "ficticiaMola";
+    }
     if (passwordAdmin == "ficticiaMola") { // Verify that the user has admin permissions
       var exist = this.productList.some(function (element, index, array) {
         return element.name == name;
@@ -144,7 +175,12 @@ var APPLICATION = APPLICATION || {
   },
 
   removeProduct: function (productName) {
-    var passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+    var passwordAdmin;
+    if(loggingMode){
+      passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+    }else {
+      passwordAdmin = "ficticiaMola";
+    }
     if (passwordAdmin == "ficticiaMola") { // Verify that the user has admin permissions
       var position = -1;
       this.productList.forEach(function (element,i,array) {
@@ -164,7 +200,12 @@ var APPLICATION = APPLICATION || {
   },
 
   addUnitsProduct: function (productName, quantity) {
-    var passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+    var passwordAdmin;
+    if(loggingMode){
+      passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+    }else {
+      passwordAdmin = "ficticiaMola";
+    }
     if (passwordAdmin == "ficticiaMola") { // Verify that the user has admin permission
       var product = this.productList.filter(function (element,i,array) {
         return element.name === productName;
@@ -222,6 +263,30 @@ var APPLICATION = APPLICATION || {
     }
   },
 
+  showStockProducts: function () {
+    var userName = prompt("Please, enter your user name:");
+    var password = prompt("Please, enter your password:");
+    var client = verifyCredentialsClient(userName, password);
+    if (client) {
+      if (client.userType == "admin") {
+        var disponibity;
+        console.log("********** STOCK VENDING MACHINE ***********\n\n");
+        console.log("" + "\t" + "PRODUCTO\t" + "CÓDIGO\t" + "CANTIDAD\t" + "DISPONIBILIDAD");
+        this.productList.forEach(function (product,i,array) {
+          disponibity = product.quantity > 0? "SI": "NO";
+          console.log(i + ".\t" + product.name + "\t" + product.code.toUpperCase()+ "\t" + product.quantity + "\t" + disponibity);
+        });
+        return true;
+      } else {
+        console.log("You haven't the admin privileges, so you may not to perfom this operation");
+        return false;
+      }
+    } else {
+      return false;
+    }
+
+  }
+
 };
 
 function Client(name, userName, password, userType, budget){
@@ -271,7 +336,12 @@ function Expense(quantity, productName, date){
   this.name = name;
 }
 
-// var passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+// var passwordAdmin;
+// if(loggingMode){
+//   passwordAdmin = prompt("Please, enter your password to perform the next operation:");
+// }else {
+//   passwordAdmin = "ficticiaMola";
+// }
 // if (passwordAdmin == "ficticiaMola") { // Verify that the user has admin permissions
 //
 // }else{
