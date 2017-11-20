@@ -270,7 +270,9 @@ var APPLICATION = APPLICATION || {
     if (client) {
       if (client.userType == "admin") {
         var disponibity;
-        console.log("********** STOCK VENDING MACHINE ***********\n\n");
+        var date = new Date();
+        date = date.toLocaleString("es-ES",{dayWeek:"long",day:"numeric",month:"long", year:"numeric",hour:"numeric",minute:"numeric"});
+        console.log("********** STOCK VENDING MACHINE ***********\t" + date +"\n\n");
         console.log("" + "\t" + "PRODUCTO\t" + "CÓDIGO\t" + "CANTIDAD\t" + "DISPONIBILIDAD");
         this.productList.forEach(function (product,i,array) {
           disponibity = product.quantity > 0? "SI": "NO";
