@@ -43,6 +43,7 @@ function test() {
   });
 }
 
+
 var Event = {
   listParticipants: [],
   removeParticipant: function(name) {
