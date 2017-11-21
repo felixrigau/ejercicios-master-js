@@ -15,8 +15,32 @@ button.addEventListener('click', function() {
 //   Event.removeParticipant(participant);
 // });
 
-function test() {
+//Factorial
+function factorial(number) {
+  if (number == 0) {
+    return 1;
+  }
+  if(number == 1){
+    return 1;
+  }else {
+    return number*factorial(--number);
+  }
+}
 
+
+//Callback
+function suma(a,b,callback) {
+  console.log("Entrada a suma!");
+  console.log("En este momento el valor de callback es: "+callback(a+b));
+  return callback(a+b);
+}
+
+function test() {
+  suma(3,4,function (r) {
+    console.log("Entrada a la función anónima");
+    console.log("Aqui el resultado de r es: "+r);
+    console.log("El resultado es: "+r);
+  });
 }
 
 var Event = {
