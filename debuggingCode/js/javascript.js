@@ -3,17 +3,17 @@ button.addEventListener('click', function() {
   test();
 });
 
-var add = document.getElementById('add');
-add.addEventListener('click', function() {
-  var participant = prompt("Enter the name of the participant:");
-  Event.addParticipant(participant);
-});
-
-var remove = document.getElementById('remove');
-remove.addEventListener('click', function() {
-  var participant = prompt("Enter the name of the participant:");
-  Event.removeParticipant(participant);
-});
+// var add = document.getElementById('add');
+// add.addEventListener('click', function() {
+//   var participant = prompt("Enter the name of the participant:");
+//   Event.addParticipant(participant);
+// });
+//
+// var remove = document.getElementById('remove');
+// remove.addEventListener('click', function() {
+//   var participant = prompt("Enter the name of the participant:");
+//   Event.removeParticipant(participant);
+// });
 
 function test() {
 
