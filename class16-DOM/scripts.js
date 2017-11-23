@@ -6,13 +6,16 @@
 
 function showFictiziaCourses() {
 
-  var fictiziaAreas = document.querySelector("#areasIndex").children,
+  var fictiziaAreas,
       coursesByArea,
       titleArea,
       titleCourse,
       hoursCourse,
       url,
       id;
+
+  //Get the fictizia's areas
+  fictiziaAreas = document.querySelector("#areasIndex").children;
 
   console.log("# Cursos de Fictizia");
   console.log("\n");
@@ -21,15 +24,22 @@ function showFictiziaCourses() {
     console.log("## "+ fictiziaAreas[i].innerText);
     console.log("\n");
 
+    //Get the fictizia's areas id. ex: web_Tab
     id = fictiziaAreas[i].id.split("_");
+
+    //id[0] gives the common element between tabs's and areas's id. ex: web
+    //Find the link <a> that contains the courses list
     coursesAndHoursByArea = document.querySelectorAll("#"+id[0] + "_Area li a");
     console.log("**Total de cursos: "+coursesAndHoursByArea.length+"**\n");
     for (var j = 0; j < coursesAndHoursByArea.length; j++) {
       titleCourse = coursesAndHoursByArea[j].children[0].innerText;
+      //Clean 4 unwanted space blanks
+      titleCourse = titleCourse.replace("    ","");
       hoursCourse = coursesAndHoursByArea[j].children[1].innerText;
-      hoursCourse = hoursCourse.replace("Curso de ","");
+      //Get the number of hours through RegEx
+      hoursCourse = hoursCourse.match("[0-9]{1,}");
       url = coursesAndHoursByArea[j].href;
-      console.log("- \["+ titleCourse +" \("+ hoursCourse +"\)\]\("+ url +"\)");
+      console.log("- \["+ titleCourse +" \("+ hoursCourse + " horas" +"\)\]\("+ url +"\)");
     }
     console.log("\n");
   }
