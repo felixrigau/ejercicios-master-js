@@ -49,7 +49,23 @@ function showFictiziaCourses() {
 //
 // Saca el estado actual de todas las líneas del metro de Madrid por consola.
 // Tu solución
+function realStateMadridMetroLines() {
+  var lines = document.querySelectorAll(".txt a");
+  for (var i = 0; i < lines.length; i++) {
+    console.log(lines[i].innerText);
+    console.log("\n");
+  }
+}
 
 // 3 - Diseña un script que sustituya todas las imágenes de las entradas de Tecnología del Mundo Today por imágenes dummy de gatitos.
 //
 // Tu solución
+//http://www.elmundotoday.com/noticias/tecnologia/
+
+function minionsPartyForElMundoToday() {
+  images = document.getElementsByTagName("img");
+  for (var i = 0; i < images.length; i++) {
+    images[i].src = "https://www.neostuff.net/wp-content/uploads/2013/07/nombres-de-minions-personajes-y-curiosidades.jpg";
+    images[i].srcset = "https://www.neostuff.net/wp-content/uploads/2013/07/nombres-de-minions-personajes-y-curiosidades.jpg";
+  }
+}
