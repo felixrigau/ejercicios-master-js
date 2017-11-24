@@ -62,7 +62,7 @@ function realStateMadridMetroLines() {
 // Tu solución
 //http://www.elmundotoday.com/noticias/tecnologia/
 
-function minionsPartyForElMundoToday() {
+function minionsParty() {
   images = document.getElementsByTagName("img");
   for (var i = 0; i < images.length; i++) {
     images[i].src = "https://www.neostuff.net/wp-content/uploads/2013/07/nombres-de-minions-personajes-y-curiosidades.jpg";
