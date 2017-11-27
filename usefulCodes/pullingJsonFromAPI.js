@@ -4,18 +4,17 @@
 //https://jsonplaceholder.typicode.com/ API de ejemplo para consumir json
 
 (function () {
-    var request = new XMLHttpRequest();
-    request.open("GET","https://jsonplaceholder.typicode.com/albums", false);
-    request.send(null);
-
-    if (request.status == 200) {
-        console.log("It's ready!!");
+  var request = new XMLHttpRequest();
+  request.open("GET","test.txt", true); //true or false, for the asynchronous mode
+  request.onreadystatechange = function () {
+    if (request.readyState == 4 && request.status == 200 && request.response) {
+        console.log("The datas are here!!!\n");
+        var json = JSON.parse(request.response);
+        console.log("Summary JSON's data ");
+        console.table(json);
     }
+  };
+  request.send(null);
 
-    var json = JSON.parse(request.response);
-    console.log("Summary JSON's data ");
-    console.table(json);
-
-    // var answer = request.responseText;
-    // console.log(answer);
+  console.log("I don't wait for the response... ");
 })();

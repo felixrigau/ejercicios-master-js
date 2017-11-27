@@ -13,18 +13,28 @@ function timeDiscount() {
 }
 
 function diferenceBetweenTodayAndMasterEndDate(){
-    var masterEndDate = new Date(2018,5,25).getTime();
+    var masterEndDate = new Date(2017,10,24,20).getTime();
     var today = new Date().getTime();
     var difference = masterEndDate - today;
 
-    var values = {
-        "seconds":(difference/1000).toFixed(),
-        "minutes":(difference/1000/60).toFixed(),
-        "hours":(difference/1000/60/60).toFixed(),
-        "days":(difference/1000/60/60/24).toFixed()
-    };
+    var seconds = (difference/1000).toFixed();
+    var minutes = (seconds/60).toFixed();
+    seconds = seconds%60;//Take the seconds rest
+    var hours = (minutes/60).toFixed();
+    minutes = minutes%60;//Take the seconds rest
+    var days = (hours/24).toFixed();
+    hours = hours%24;
+    console.log("days: "+days+" / hours: "+hours+" / minutes: "+minutes+" / seconds: "+seconds);
+    console.log();
 
-    return values;
+    // var values = {
+    //     "seconds":(difference/1000).toFixed(),
+    //     "minutes":(difference/1000/60).toFixed(),
+    //     "hours":(difference/1000/60/60).toFixed(),
+    //     "days":(difference/1000/60/60/24).toFixed()
+    // };
+
+    // return values;
 }
 
 function timerDiscount() {
