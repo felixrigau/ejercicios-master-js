@@ -6,7 +6,7 @@ function showPollenDatas() {
     if (json) {
         console.table(json);
     } else {
-        
+
     }
 }
 
@@ -32,12 +32,12 @@ function showPollenDatas() {
 
 // // ...
 
-function makeRequest(url) {
-    
+function makeRequest(url, httpMethod, asynchronous) {
+
     var request = new XMLHttpRequest();
-    request.open(url, false);
+    request.open(httpMethod,url, asynchronous);
     request.send(null);
-    
+
     if (request.readyState == 4 && request.status >= 200 && request.status < 300 && request.responseText ) {
         var json = JSON.parse(request.response);
         return json;
