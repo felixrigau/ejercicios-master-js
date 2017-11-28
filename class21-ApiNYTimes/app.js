@@ -15,21 +15,47 @@ function getBookList() {
 
     url = url.substring(0, url.length-1);
 
-    var json = makeRequest("GET",url,false);
-    console.table(json.results);
+    makeRequest("GET",url,false,showBookList);
     
 }
 
-function makeRequest(httpMethod, url, asynchronous) {
+function makeRequest(httpMethod, url, asynchronous, callback) {
 
     var request = new XMLHttpRequest();
     request.open(httpMethod,url, asynchronous);
-    request.send(null);
-
+    request.onreadystatechange = function () {
+    
     if (request.readyState == 4 && request.status >= 200 && request.status < 300 && request.responseText ) {
-    	return JSON.parse(request.responseText);
+        var json = JSON.parse(request.responseText);
+        var books = json.results;
+        callback(books)
+    	return true;
 	}else{
 	    return false;
     }
+    
+    };
+    request.send(null);
 
 }
+
+function showBookList(books) {
+    
+    var titleList = document.querySelector(".title");
+    titleList.innerText += " "+books[0].list_name;
+    
+    var books = document.querySelector('.books');
+    
+    books.foreach(function (element, index, arry) {
+        li = "<li class=\"book\">" +
+        
+        "</li>";
+        
+        books.innerHTML = "<li class=\"book\"></li>";
+    });
+    
+}
+
+(function () {
+    getBookList();
+})();
