@@ -39,20 +39,41 @@ function makeRequest(httpMethod, url, asynchronous, callback) {
 
 }
 
-function showBookList(books) {
+function showBookList(booksList) {
     
     var titleList = document.querySelector(".title");
-    titleList.innerText += " "+books[0].list_name;
+    titleList.innerText += " "+booksList[0].list_name;
     
-    var books = document.querySelector('.books');
-    
-    books.foreach(function (element, index, arry) {
+    var books = document.querySelector('.books'),
+        li,
+        element,
+        title,
+        rank,
+        urlImage,
+        week,
+        description,
+        urlBuy;
+    for (var i = 0; i < booksList.length; i++) {
+        
+        element = booksList[i];
+        title = element.book_details[0].title;
+        rank = element.rank.toString();
+        urlImage = element.isbns[element.isbns.length-1].isbn13;
+        week = element.weeks_on_list;
+        description = element.book_details[0].description;
+        urlBuy = element.amazon_product_url;
+        
         li = "<li class=\"book\">" +
+                "<h3 class=\"title\">"+"#"+rank.toUpperCase()+" "+title.toUpperCase()+"</h3>" +
+                "<img src=\"https://s1.nyt.com/du/books/images/"+urlImage+".jpg\" "+"class=\"image\">" +
+                "<p class=\"weeks\">Weeks on list: "+week+"</p>" +
+                "<p class=\"description\">"+description+"</p>" +
+                "<a href=\""+urlBuy+"\">BUY AT AMAZON</a>" +
+             "</li>";
         
-        "</li>";
+        books.innerHTML += li;
         
-        books.innerHTML = "<li class=\"book\"></li>";
-    });
+    }
     
 }
 
