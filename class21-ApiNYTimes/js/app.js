@@ -1,62 +1,73 @@
-//Libros de una categoria 
+//Libros de una categoria
 var bookListUrl = "https://api.nytimes.com/svc/books/v3/lists.json";
 
 //Todas las categorías
 var categoryListUrl = "https://api.nytimes.com/svc/books/v3/lists/names.json";
 
-function makeRequest(httpMethod, url, asynchronous, callback) {
-    
-    showLoader(true);
-    var request = new XMLHttpRequest();
-    request.open(httpMethod,url, asynchronous);
-    request.onreadystatechange = function () {
-    
-        if (request.readyState == 4 && request.status >= 200 && request.status < 300 && request.responseText ) {
-            var json = JSON.parse(request.responseText);
-            var results = json.results;
-            callback(results)
-        	return true;
-    	}else{
-    	    return false;
-        }
-    
-    };
-    request.send(null);
-
+function setEventClickToBCategories() {
+  var links = document.querySelectorAll('.link');
+  for (var i=0; i < links.length; i++){
+    links[i].addEventListener('click',function (even) {
+      var url = event.target.getAttribute('name');
+      makeRequest('GET',url,true,showBookList);
+    }, true);
+  }
 }
 
-function getUrl(url, nameList) {
-    
-    var params;
-    if(nameList){
-        nameList = nameList.replace(" ","-");
-        params = {
-          'api-key': "5b4c3f4bf57b49729ed543e0755a05b8",
-          'list': nameList
-        };
-    }else{
-        params = {
-          'api-key': "5b4c3f4bf57b49729ed543e0755a05b8"
-        };
-    }
-    
-    url += '?';
-    
-    for (var prop in params) {
-        url += prop+"="+params[prop]+"&";
-    }
+(function () {
+    init();
+})();
 
-    url = url.substring(0, url.length-1);
+function init() {
+    var url = getUrl(categoryListUrl);
+    makeRequest('GET', url, true, showBookCategoryList);
+}
 
-    return url;
-    
+function showBookCategoryList(categoryList) {
+
+    var titleList = document.querySelector(".title");
+    titleList.innerText += "Best Sellers List";
+    var categories = document.querySelector('.elements'),
+        li,
+        element,
+        title,
+        oldest,
+        newest,
+        update,
+        urlBooks;
+
+    clearElements(categories);
+
+    for (var i = 0; i < categoryList.length; i++) {
+
+        element = categoryList[i];
+        title = element.display_name;
+        oldest = element.oldest_published_date;
+        newest = element.newest_published_date;
+        update = element.updated;
+        urlBooks = getUrl(bookListUrl,element.list_name_encoded);
+
+
+        li = "<li class=\"category\">" +
+                "<h3 class=\"title\">"+"#"+title+"</h3>" +
+                "<p class=\"oldest\">Oldest: "+oldest+"</p>" +
+                 "<p class=\"newdest\">NewDest: "+newest+"</p>" +
+                "<p class=\"update\">"+"Update:"+update+"</p>" +
+                "<p class=\"link\" name=\""+urlBooks+"\" >READ MORE!</p>" +
+             "</li>";
+
+        categories.innerHTML += li;
+
+    }
+    showLoader(false);
+    setEventClickToBCategories()
 }
 
 function showBookList(booksList) {
-    
+
     var titleList = document.querySelector(".title");
     titleList.innerText += "Top "+booksList[0].list_name;
-    
+
     var books = document.querySelector('.elements'),
         li,
         element,
@@ -66,8 +77,11 @@ function showBookList(booksList) {
         week,
         description,
         urlBuy;
+
+    clearElements(books);
+
     for (var i = 0; i < booksList.length; i++) {
-        
+
         element = booksList[i];
         title = element.book_details[0].title;
         rank = element.rank.toString();
@@ -79,7 +93,7 @@ function showBookList(booksList) {
         week = element.weeks_on_list;
         description = element.book_details[0].description;
         urlBuy = element.amazon_product_url;
-        
+
         li = "<li class=\"book\">" +
                 "<h3 class=\"title\">"+"#"+rank.toUpperCase()+" "+title.toUpperCase()+"</h3>" +
                 "<img src=\"https://s1.nyt.com/du/books/images/"+urlImage+".jpg\" "+"class=\"image\">" +
@@ -87,48 +101,17 @@ function showBookList(booksList) {
                 "<p class=\"description\">"+description+"</p>" +
                 "<a href=\""+urlBuy+"\">BUY AT AMAZON</a>" +
              "</li>";
-        
+
         books.innerHTML += li;
-        
+
     }
     showLoader(false);
 }
 
-function showBookCategoryList(categoryList) {
-    
-    var titleList = document.querySelector(".title");
-    titleList.innerText += "Best Sellers List"
-    var books = document.querySelector('.elements'),
-        li,
-        element,
-        title,
-        oldest,
-        newest,
-        update,
-        urlBooks;
-        
-    for (var i = 0; i < categoryList.length; i++) {
-        
-        element = categoryList[i];
-        title = element.display_name;
-        oldest = element.oldest_published_date;
-        newest = element.newest_published_date;
-        update = element.updated;
-        urlBooks = getBookListUrl(title);
-
-        
-        li = "<li class=\"category\">" +
-                "<h3 class=\"title\">"+"#"+title+"</h3>" +
-                "<p class=\"oldest\">Oldest: "+oldest+"</p>" +
-                 "<p class=\"newdest\">NewDest: "+newest+"</p>" +
-                "<p class=\"update\">"+"Update:"+update+"</p>" +
-                "<a href=\""+urlBuy+"\">BUY AT AMAZON</a>" +
-             "</li>";
-        
-        books.innerHTML += li;
-        
-    }
-    showLoader(false);
+function clearElements(element) {
+  while(element.hasChildNodes()){
+	   element.removeChild(element.firstChild);
+  }
 }
 
 function showLoader(show) {
@@ -140,11 +123,42 @@ function showLoader(show) {
     }
 }
 
-function init() {
-    var url = getUrl(categoryListUrl);
-    makeRequest('GET', url, true, showBookCategoryList)
+function makeRequest(httpMethod, url, asynchronous, callback) {
+
+    showLoader(true);
+    var request = new XMLHttpRequest();
+    request.open(httpMethod,url, asynchronous);
+    request.onreadystatechange = function () {
+
+      if (request.readyState == 4 && request.status >= 200 && request.status < 300 && request.responseText ) {
+          var json = JSON.parse(request.responseText);
+          var results = json.results;
+          callback(results);
+          return true;
+      }else{
+          return false;
+      }
+    };
+    request.send(null);
+
 }
 
-(function () {
-    init();
-})();
+function getUrl(url, nameList) {
+    var params;
+    if(nameList){
+        params = {
+          'api-key': "5b4c3f4bf57b49729ed543e0755a05b8",
+          'list': nameList
+        };
+    }else{
+        params = {
+          'api-key': "5b4c3f4bf57b49729ed543e0755a05b8"
+        };
+    }
+    url += '?';
+    for (var prop in params) {
+        url += prop+"="+params[prop]+"&";
+    }
+    url = url.substring(0, url.length-1);
+    return url;
+}

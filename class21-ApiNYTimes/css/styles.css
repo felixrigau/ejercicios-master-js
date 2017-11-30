@@ -13,13 +13,13 @@ h1.title{
     border-bottom: 1px solid #c2c2c2;
     padding-bottom: 20px;
 }
-.books{
+.elements{
     padding: 0;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
-.book {
+.book, .category {
     list-style: none;
     width: 25%;
     font-family: Lato;
