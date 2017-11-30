@@ -25,8 +25,6 @@ function init() {
 
 function showBookCategoryList(categoryList) {
 
-    var titleList = document.querySelector(".title");
-    titleList.innerText += "Best Sellers List";
     var categories = document.querySelector('.elements'),
         li,
         element,
@@ -65,8 +63,8 @@ function showBookCategoryList(categoryList) {
 
 function showBookList(booksList) {
 
-    var titleList = document.querySelector(".title");
-    titleList.innerText += "Top "+booksList[0].list_name;
+    var titleCategory = document.querySelector(".title-category");
+    titleCategory.innerText += "Top "+booksList[0].list_name;
 
     var books = document.querySelector('.elements'),
         li,
