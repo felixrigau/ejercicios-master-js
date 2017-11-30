@@ -4,6 +4,11 @@ var bookListUrl = "https://api.nytimes.com/svc/books/v3/lists.json";
 //Todas las categorías
 var categoryListUrl = "https://api.nytimes.com/svc/books/v3/lists/names.json";
 
+var buttonBack = document.querySelector('.back');
+buttonBack.addEventListener('click',function () {
+ init();
+},true);
+
 function setEventClickToBCategories() {
   var links = document.querySelectorAll('.link');
   for (var i=0; i < links.length; i++){
@@ -19,6 +24,7 @@ function setEventClickToBCategories() {
 })();
 
 function init() {
+    showElement(".back",false);
     var url = getUrl(categoryListUrl);
     makeRequest('GET', url, true, showBookCategoryList);
 }
@@ -57,7 +63,7 @@ function showBookCategoryList(categoryList) {
         categories.innerHTML += li;
 
     }
-    showLoader(false);
+    showElement(".loader",false);
     setEventClickToBCategories()
 }
 
@@ -103,7 +109,8 @@ function showBookList(booksList) {
         books.innerHTML += li;
 
     }
-    showLoader(false);
+    showElement(".loader",false);
+    showElement(".back",true);
 }
 
 function clearElements(element) {
@@ -112,18 +119,18 @@ function clearElements(element) {
   }
 }
 
-function showLoader(show) {
-    var loader =document.querySelector('.loader');
+function showElement(cssClass,show) {
+    var element = document.querySelector(cssClass);
     if (show) {
-        loader.style.display = 'block';
+        element.style.display = 'block';
     } else {
-        loader.style.display = 'none';
+        element.style.display = 'none';
     }
 }
 
 function makeRequest(httpMethod, url, asynchronous, callback) {
 
-    showLoader(true);
+    showElement(".loader",true);
     var request = new XMLHttpRequest();
     request.open(httpMethod,url, asynchronous);
     request.onreadystatechange = function () {
