@@ -53,11 +53,11 @@ function showBookCategoryList(categoryList) {
 
 
         li = "<li class=\"category\">" +
-                "<h3 class=\"title\">"+"#"+title+"</h3>" +
+                "<h3 class=\"title\">"+title+"</h3>" +
                 "<p class=\"oldest\">Oldest: "+oldest+"</p>" +
                  "<p class=\"newdest\">NewDest: "+newest+"</p>" +
                 "<p class=\"update\">"+"Update:"+update+"</p>" +
-                "<p class=\"link\" name=\""+urlBooks+"\" >READ MORE!</p>" +
+                "<p class=\"link\" name=\""+urlBooks+"\" >READ MORE!<span class=\"arrow\">\></spam></p>" +
              "</li>";
 
         categories.innerHTML += li;
@@ -70,7 +70,7 @@ function showBookCategoryList(categoryList) {
 function showBookList(booksList) {
 
     var titleCategory = document.querySelector(".title-category");
-    titleCategory.innerText += "Top "+booksList[0].list_name;
+    titleCategory.innerText = "Top "+booksList[0].list_name;
 
     var books = document.querySelector('.elements'),
         li,
@@ -99,11 +99,11 @@ function showBookList(booksList) {
         urlBuy = element.amazon_product_url;
 
         li = "<li class=\"book\">" +
-                "<h3 class=\"title\">"+"#"+rank.toUpperCase()+" "+title.toUpperCase()+"</h3>" +
+                "<h3 class=\"title-book\">"+"#"+rank.toUpperCase()+" "+title.toUpperCase()+"</h3>" +
                 "<img src=\"https://s1.nyt.com/du/books/images/"+urlImage+".jpg\" "+"class=\"image\">" +
                 "<p class=\"weeks\">Weeks on list: "+week+"</p>" +
                 "<p class=\"description\">"+description+"</p>" +
-                "<a href=\""+urlBuy+"\">BUY AT AMAZON</a>" +
+                "<a class=\"amazon\" href=\""+urlBuy+"\">BUY AT AMAZON</a>" +
              "</li>";
 
         books.innerHTML += li;

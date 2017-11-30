@@ -6,29 +6,118 @@ body{
     justify-content: center;
 }
 .container {
-    width: 50%;
+    width: 70%;
 }
-h1.title{
-    font-size: 36px;
-    border-bottom: 1px solid #c2c2c2;
-    padding-bottom: 20px;
+.title{
+    font-size: 32px;
+    margin: 0px;
+}
+.subtitle{
+  font-size: 70px;
+  background-color: #000;
+  font-weight: 800;
+  margin: 0px;
+  color: #FFF;
+  text-align: right;
+  width: 60%;
+  line-height: 0.7;
+  font-family: 'Roboto', sans-serif;
 }
 .elements{
-    padding: 0;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-top: 15px;
+  border-top: 1px solid #f1f1f1;
 }
 .book, .category {
-    list-style: none;
-    width: 25%;
-    font-family: Lato;
+  list-style: none;
+  width: 21%;
+  font-family: Lato;
+  box-shadow: 0px 0px 4px #efefef;
+  border: 1px solid #f1f1f1;
+  padding: 13px;
+  margin-bottom: 15px;
+  border-radius: 2px;
 }
-h3.title {
-    font-size: 13px;
+
+.book p, .category p{
+  margin: 0;
+  font-size: 11px;
+  color: #848484;
+  margin-bottom: 5px;
+}
+.category .title {
+    font-size: 18px;
+    margin: 0px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+.title-category{
+  font-size: 27px;
+  margin: 10px 0 15px 0;
+}
+.title-book {
+    font-size: 10px;
+    color: #7b7b7b;
 }
 .image{
-    width: 90%;
+    width: 100%;
+}
+p.weeks, p.description {
+    font-size: 9px;
+    margin: 8px 0 8px 0;
+    color: #7b7b7b;
+    line-height: 16px;
+}
+p.link{
+    border: 1px solid #c9c9c9;
+    width: 80px;
+    background-color: #adda84;
+    color: #133d71;
+    text-align: center;
+    padding: 7px;
+    font-size: 10px;
+    box-shadow: 2px 2px 2px #f1f1f1;
+    margin-top: 10px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.back{
+  border: 1px solid #c9c9c9;
+  width: 90px;
+  background-color: #e81716;
+  color: #FFF;
+  text-align: center;
+  padding: 9px;
+  font-size: 10px;
+  box-shadow: 2px 2px 2px #f1f1f1;
+  margin-top: 10px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.amazon{
+  border: 1px solid #c9c9c9;
+  width: 90px;
+  background-color: #ff9900;
+  color: #FFF;
+  text-align: center;
+  padding: 9px;
+  font-size: 10px;
+  box-shadow: 2px 2px 2px #f1f1f1;
+  margin-top: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.arrow{
+  margin-left: 3px;
+  font-family: 'Roboto';
+  font-size: 12px;margin-left: 3px;
 }
 
 .loader {
