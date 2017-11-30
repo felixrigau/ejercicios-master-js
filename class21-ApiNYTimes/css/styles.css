@@ -8,6 +8,9 @@ body{
 .container {
     width: 70%;
 }
+.group{
+  display: flex;
+}
 .title{
     font-size: 32px;
     margin: 0px;
