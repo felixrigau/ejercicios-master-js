@@ -1,6 +1,10 @@
 body{
     font-family: 'Lato', sans-serif;
 }
+.general-container {
+    display: flex;
+    justify-content: center;
+}
 .container {
     width: 50%;
 }
