@@ -1,6 +1,23 @@
 .general-container {
   padding: 30px;
 }
+
+.title-page {
+    text-align: center;
+    font-family: Lato;
+    color: #f1c40f;
+    font-size: 60px;
+    padding: 0;
+    margin: 0;
+}
+.station-name {
+    font-size: 24px;
+    font-family: Lato;
+    text-align: center;
+    margin: 0 0 50px 0;
+    color: #e74c3c;
+}
+
 .station-info {
   display: flex;
   justify-content: center;
