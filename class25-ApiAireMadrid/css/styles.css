@@ -86,8 +86,16 @@
 .weater-prediction .day-info{
   margin-left: 15px;
 }
+.weater-prediction .title{
+  color: #666;
+  font-family: Lato;
+  font-size: 16px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
 .weater-prediction .day-info h3{
-  margin-bottom: 8px
+  margin-bottom: 8px;
+  font-size: 14px;
 }
 .weater-prediction .day-info p{
   margin-bottom: 5px;
