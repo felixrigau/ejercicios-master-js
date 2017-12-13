@@ -40,22 +40,24 @@ var app = {
     },
     dataWeather:function (json) {
       if (json) {
-        var dayInfo = document.querySelector('.day-info');
-        var icon = document.querySelector('.icon img');
-        currentWeather = json.list[0];
+
+        var dayInfo = document.querySelector('.day-info'),
+            icon = document.querySelector('.icon img'),
+            currentWeather = json.list[0];
+
         dayInfo.innerHTML += "<h3 class=\"weather\">Cielo claro</h3>"+
-        "<p class=\"temperature\">Temperatura: 2.99 C</p>"+
+        "<p class=\"temperature\">Temperatura: "+currentWeather.main.temp.toFixed(1)+" °C</p>"+
         "<p>"+
-          "<span class=\"min\">Min:2.99 C</span>"+
+          "<span class=\"min\">Min: "+currentWeather.main.temp_min.toFixed(1)+" °C</span>"+
           "<span class=\"separator\">|</span>"+
-          "<span class=\"max\">Max: 2.99 C</span>"+
+          "<span class=\"max\">Max: "+currentWeather.main.temp_max.toFixed(1)+" °C</span>"+
         "</p>"+
         "<p>"+
-          "<span class=\"hum\">Hum:69%</span>"+
+          "<span class=\"hum\">Hum: "+currentWeather.main.humidity+" %</span>"+
           "<span class=\"separator\">|</span>"+
-          "<span class=\"press\">Press: 995 psi</span>"+
+          "<span class=\"press\">Press: "+currentWeather.main.pressure+" psi</span>"+
         "</p>"+
-        "<p class=\"wind\">Viento: 5km/h</p>";
+        "<p class=\"wind\">Viento: "+currentWeather.wind.deg.toFixed(0)+"° | "+currentWeather.wind.speed+" Km/h</p>";
       }
     },
     test:function (json) {
@@ -93,6 +95,7 @@ var app = {
     init:function (id) {
       app.stationManagement.station(id);
       app.stationManagement.pollution(id);
+      app.stationManagement.weather(id);
     },
 
     getLastValue: function (array) {
