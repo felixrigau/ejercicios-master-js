@@ -1,5 +1,8 @@
 var app = {
   stationManagement:{
+    allStation: function () {
+      app.tools.makeRequest('GET', 'http://airemad.com/api/v1/station', true, app.renderView.allStations);
+    },
     station: function (id) {
       app.tools.makeRequest('GET', 'http://airemad.com/api/v1/station/'+id, true, app.renderView.dataStation);
     },
@@ -16,6 +19,15 @@ var app = {
       if (json) {
         var name = document.querySelector('.station-name');
         name.innerText = json.direccion;
+      }
+    },
+    allStations:function (json) {
+      if(json){
+        var countriesCombo = document.querySelector('.stations');
+        for (var i = 0; i < json.length; i++) {
+          countriesCombo.innerHTML += '<option class=\'item\' value=\"'+json[i].id+'\">'+json[i].nombre_estacion+'</option>';
+        }
+        app.events.setOnChangeEvent();
       }
     },
     dataPollution:function (json) {
@@ -100,7 +112,17 @@ var app = {
   },
 
   events:{
-
+    setOnChangeEvent:function () {
+      var selectItems = document.querySelector('.stations');
+      selectItems.addEventListener('change',function () {
+        if(event.target.value){
+          codeStation = event.target.value;
+          app.stationManagement.station(codeStation);
+          app.stationManagement.pollution(codeStation);
+          app.stationManagement.weather(codeStation);
+        }
+      }, false);
+    }
   },
 
   animation:{
@@ -123,10 +145,8 @@ var app = {
       request.send(null);
     },
 
-    init:function (id) {
-      app.stationManagement.station(id);
-      app.stationManagement.pollution(id);
-      app.stationManagement.weather(id);
+    init:function () {
+      app.stationManagement.allStation();
     },
 
     getLastValue: function (array) {
@@ -169,5 +189,5 @@ var app = {
 };
 
 (function () {
-  app.tools.init('S024');
+  app.tools.init();
 })();
