@@ -41,25 +41,56 @@ var app = {
     dataWeather:function (json) {
       if (json) {
 
-        var dayInfo = document.querySelector('.day-info'),
-            icon = document.querySelector('.icon img'),
-            currentWeather = json.list[0];
+        var dayInfoContainer = document.querySelector('.weather-container .day-info-container'),
+        currentWeather = json.list[0],
+        urlCurrentWeather = "https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/"+currentWeather.weather[0].icon+".png";
 
-        dayInfo.innerHTML += "<h3 class=\"weather\">Cielo claro</h3>"+
-        "<p class=\"temperature\">Temperatura: "+currentWeather.main.temp.toFixed(1)+" °C</p>"+
-        "<p>"+
-          "<span class=\"min\">Min: "+currentWeather.main.temp_min.toFixed(1)+" °C</span>"+
-          "<span class=\"separator\"> | </span>"+
-          "<span class=\"max\">Max: "+currentWeather.main.temp_max.toFixed(1)+" °C</span>"+
-        "</p>"+
-        "<p>"+
-          "<span class=\"hum\">Hum: "+currentWeather.main.humidity+" %</span>"+
-          "<span class=\"separator\"> | </span>"+
-          "<span class=\"press\">Press: "+currentWeather.main.pressure+" psi</span>"+
-        "</p>"+
-        "<p class=\"wind\">Viento: "+currentWeather.wind.deg.toFixed(0)+"° | "+currentWeather.wind.speed+" Km/h</p>";
+        dayInfoContainer.innerHTML += app.renderView.createElement(urlCurrentWeather, currentWeather);
+
+        lenght = json.list.length;
+        if (lenght === 40) {
+          lenght = lenght-1;
+
+          for (var i = 8; i <= lenght; i=i+8) {
+            var element = json.list[i],
+                day = app.tools.getFormatedDate(element.dt_txt,"es-ES",{weekday: 'long'}),
+                hour = app.tools.getFormatedDate(element.dt_txt,"es-ES",{hour: '2-digit',minute: '2-digit'}),
+                url = "https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/"+element.weather[0].icon+".png",
+                daysPredictionContainer = document.querySelector('.days');
+
+            daysPredictionContainer.innerHTML+=
+            "<li class=\"day\">"+
+              "<p class=\"title\">"+day+" ("+hour+")</p>"+
+              "<div class=\"day-info-container\">"+
+                app.renderView.createElement(url, element)+
+              "</div>"+
+            "</li>";
+          }
+        }
       }
     },
+    createElement: function (url, element) {
+      var tagContent = "<div class=\"icon\">"+
+        "<img src="+url+">"+
+      "</div>"+
+      "<div class=\"day-info\">"+
+        "<h3 class=\"weather\">"+element.weather[0].description+"</h3>"+
+        "<p class=\"temperature\">Temperatura: "+element.main.temp.toFixed(1)+" °C</p>"+
+        "<p>"+
+          "<span class=\"min\">Min: "+element.main.temp_min.toFixed(1)+" °C</span>"+
+          "<span class=\"separator\"> | </span>"+
+          "<span class=\"max\">Max: "+element.main.temp_max.toFixed(1)+" °C</span>"+
+        "</p>"+
+        "<p>"+
+          "<span class=\"hum\">Hum: "+element.main.humidity+" %</span>"+
+          "<span class=\"separator\"> | </span>"+
+          "<span class=\"press\">Press: "+element.main.pressure+" psi</span>"+
+        "</p>"+
+        "<p class=\"wind\">Viento: "+element.wind.deg.toFixed(0)+"° | "+element.wind.speed+" Km/h</p>"+
+      "</div>";
+      return tagContent;
+    },
+
     test:function (json) {
       if (json) {
         var container = document.querySelector('.general-container');
@@ -110,6 +141,19 @@ var app = {
           }
         }
       }
+    },
+    /** TODO
+    *var options = {
+    *  weekday: 'long',
+    *  year: 'numeric',
+    *  month: 'long',
+    *  day: 'numeric'
+    * };
+    * https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
+    */
+    getFormatedDate(date, lenguage, options){
+      date = new Date(date);
+      return date.toLocaleString(lenguage, options);
     },
 
     test: function () {
