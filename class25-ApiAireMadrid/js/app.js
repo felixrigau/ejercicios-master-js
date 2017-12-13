@@ -30,7 +30,7 @@ var app = {
               technique = json[variable].technique;
               parameterList.innerHTML += "<li>"+
                 "<p class=\"parameter\">"+parameter+" ("+abrebiation+"): </p>"+
-                "<p class=\"value\"> "+value+"up/m3</p>"+
+                "<p class=\"value\"> "+value.toFixed(1)+"μp/m3</p>"+
                 "<p class=\"details\">medido por "+technique+"</p>"+
               "</li>";
             }
@@ -49,12 +49,12 @@ var app = {
         "<p class=\"temperature\">Temperatura: "+currentWeather.main.temp.toFixed(1)+" °C</p>"+
         "<p>"+
           "<span class=\"min\">Min: "+currentWeather.main.temp_min.toFixed(1)+" °C</span>"+
-          "<span class=\"separator\">|</span>"+
+          "<span class=\"separator\"> | </span>"+
           "<span class=\"max\">Max: "+currentWeather.main.temp_max.toFixed(1)+" °C</span>"+
         "</p>"+
         "<p>"+
           "<span class=\"hum\">Hum: "+currentWeather.main.humidity+" %</span>"+
-          "<span class=\"separator\">|</span>"+
+          "<span class=\"separator\"> | </span>"+
           "<span class=\"press\">Press: "+currentWeather.main.pressure+" psi</span>"+
         "</p>"+
         "<p class=\"wind\">Viento: "+currentWeather.wind.deg.toFixed(0)+"° | "+currentWeather.wind.speed+" Km/h</p>";
