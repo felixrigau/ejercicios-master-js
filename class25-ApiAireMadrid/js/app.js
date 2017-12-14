@@ -57,29 +57,29 @@ var app = {
         var dayInfoContainer = document.querySelector('.weather-container .day-info-container'),
         currentWeather = json.list[0],
         urlCurrentWeather = "https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/"+currentWeather.weather[0].icon+".png";
-          
-          dayInfoContainer.innerHTML = "";
+
+        dayInfoContainer.innerHTML = "";
         dayInfoContainer.innerHTML += app.renderView.createElement(urlCurrentWeather, currentWeather);
 
         lenght = json.list.length;
         if (lenght === 40) {
           lenght = lenght-1;
-            
-            daysPredictionContainer = document.querySelector('.days');
-            daysPredictionContainer.innerHTML = "";
+
+          var daysPredictionContainer = document.querySelector('.days');
+          daysPredictionContainer.innerHTML = "";
           for (var i = 8; i <= lenght; i=i+8) {
             var element = json.list[i],
                 day = app.tools.getFormatedDate(element.dt_txt,"es-ES",{weekday: 'long'}),
                 hour = app.tools.getFormatedDate(element.dt_txt,"es-ES",{hour: '2-digit',minute: '2-digit'}),
-                url = "https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/"+element.weather[0].icon+".png",
+                url = "https://openweathermap.org/themes/openweathermap/assets/vendor/owm/img/widgets/"+element.weather[0].icon+".png";
                 daysPredictionContainer = document.querySelector('.days');
-            daysPredictionContainer.innerHTML+=
-            "<li class=\"day\">"+
-              "<p class=\"title\">"+day+" ("+hour+")</p>"+
-              "<div class=\"day-info-container\">"+
-                app.renderView.createElement(url, element)+
-              "</div>"+
-            "</li>";
+                daysPredictionContainer.innerHTML+=
+                  "<li class=\"day\">"+
+                    "<p class=\"title\">"+day+" ("+hour+")</p>"+
+                    "<div class=\"day-info-container\">"+
+                      app.renderView.createElement(url, element)+
+                    "</div>"+
+                  "</li>";
           }
         }
       }
@@ -174,7 +174,7 @@ var app = {
     * };
     * https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
     */
-    getFormatedDate(date, lenguage, options){
+    getFormatedDate:function(date, lenguage, options){
       date = new Date(date);
       return date.toLocaleString(lenguage, options);
     },
