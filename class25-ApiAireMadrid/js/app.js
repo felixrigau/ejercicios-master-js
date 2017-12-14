@@ -3,9 +3,6 @@ var app = {
     allStation: function () {
       app.tools.makeRequest('GET', 'http://airemad.com/api/v1/station', true, app.renderView.allStations);
     },
-    station: function (id) {
-      app.tools.makeRequest('GET', 'http://airemad.com/api/v1/station/'+id, true, app.renderView.dataStation);
-    },
     pollution: function (id) {
       app.tools.makeRequest('GET', 'http://airemad.com/api/v1/pollution/'+id, true, app.renderView.dataPollution);
     },
@@ -15,25 +12,21 @@ var app = {
   },
 
   renderView:{
-    dataStation:function (json) {
-      if (json) {
-        var name = document.querySelector('.station-name');
-        name.innerText = json.direccion;
-      }
-    },
     allStations:function (json) {
       if(json){
         var countriesCombo = document.querySelector('.stations');
         for (var i = 0; i < json.length; i++) {
-          countriesCombo.innerHTML += '<option class=\'item\' value=\"'+json[i].id+'\">'+json[i].nombre_estacion+'</option>';
+          countriesCombo.innerHTML += '<option class=\'item\' value=\"'+json[i].id+'\">Estación de '+json[i].nombre_estacion+' ('+json[i].direccion+')</option>';
         }
         app.events.setOnChangeEvent();
       }
     },
     dataPollution:function (json) {
-      if (json) {
-        var parameterList = document.querySelector('.parameter-list');
-          parameterList.innerHTML = "";
+      var tag = document.querySelector('.pollution .subtitle-page');
+      var parameterList = document.querySelector('.parameter-list');
+      if (json && json !== 500) {
+        parameterList = document.querySelector('.parameter-list');
+        parameterList.innerHTML = "";
         for (var variable in json) {
           if (json.hasOwnProperty(variable)) {
             if (typeof json[variable]  === "object") {
@@ -49,6 +42,10 @@ var app = {
             }
           }
         }
+        app.renderView.showHideElement(false, tag);
+      }else {
+        parameterList.innerHTML = "";
+        app.renderView.showHideElement(true, tag);
       }
     },
     dataWeather:function (json) {
@@ -83,6 +80,10 @@ var app = {
           }
         }
       }
+      var tag = document.querySelector('.loader');
+      app.renderView.showHideElement(false, tag);
+      tag = document.querySelector('.info-container');
+      app.renderView.showHideElement(true, tag);
     },
     createElement: function (url, element) {
       var tagContent = "<div class=\"icon\">"+
@@ -106,6 +107,14 @@ var app = {
       return tagContent;
     },
 
+    showHideElement:function (show, element) {
+      if (show) {
+        element.classList.remove('hidden');
+      }else {
+        element.classList.add('hidden');
+      }
+    },
+
     test:function (json) {
       if (json) {
         var container = document.querySelector('.general-container');
@@ -119,8 +128,9 @@ var app = {
       var selectItems = document.querySelector('.stations');
       selectItems.addEventListener('change',function () {
         if(event.target.value){
+          var tag = document.querySelector('.loader');
+          app.renderView.showHideElement(true, tag);
           codeStation = event.target.value;
-          app.stationManagement.station(codeStation);
           app.stationManagement.pollution(codeStation);
           app.stationManagement.weather(codeStation);
         }
@@ -140,6 +150,7 @@ var app = {
         if (request.readyState === 4 && request.status === 200 && request.responseText ) {
             var json = JSON.parse(request.responseText);
             callback(json);
+
             return true;
         }else{
             return false;
