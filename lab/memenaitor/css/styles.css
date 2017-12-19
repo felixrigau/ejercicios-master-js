@@ -4,10 +4,10 @@
   background-repeat: no-repeat;
   width: 300px;
   height: 300px;
+  display: none;
 }
 
-.convert {
-  background-color: #f1c40f;
+.button {
   width: 80px;
   height: 32px;
   text-align: center;
@@ -18,4 +18,17 @@
   font-size: 16px;
   color: #34495e;
   font-weight: bold;
+  cursor: pointer;
+}
+
+.create {
+  background-color: #f1c40f;
+}
+
+.convert {
+  background-color: #2ecc71;
+}
+
+.hidden{
+  display: none;
 }
