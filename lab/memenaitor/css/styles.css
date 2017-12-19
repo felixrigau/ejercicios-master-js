@@ -1,0 +1,21 @@
+.image{
+  background: url(../images/ronaldo.jpg) center center;
+  background-size: 166%;
+  background-repeat: no-repeat;
+  width: 300px;
+  height: 300px;
+}
+
+.convert {
+  background-color: #f1c40f;
+  width: 80px;
+  height: 32px;
+  text-align: center;
+  border-radius: 2px;
+  font-family: monospace;
+  padding-top: 13px;
+  text-transform: uppercase;
+  font-size: 16px;
+  color: #34495e;
+  font-weight: bold;
+}

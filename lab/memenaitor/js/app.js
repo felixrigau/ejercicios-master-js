@@ -1,7 +1,7 @@
 var app = {
   management:{
-    method: function () {
-      
+    convertToCanvas: function () {
+      window.alert('Let\'s go!!');
     },
   },
 
@@ -12,5 +12,6 @@ var app = {
 };
 
 (function () {
-
+  var convertBtn = document.querySelector('.convert');
+  convertBtn.addEventListener('click',app.management.convertToCanvas, true);
 })();
