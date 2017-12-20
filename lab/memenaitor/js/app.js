@@ -5,12 +5,14 @@ var app = {
     createCanvas: function () {
       image = document.querySelector('#image');
       canvas = document.querySelector('#canvas');
+      // var newImage = new Image();
+      // newImage.src = image.src;
 
       canvas.width = image.width;
 	    canvas.height = image.height;
 
       var context = canvas.getContext('2d');
-      context.drawImage(image, 0, 0);
+      context.drawImage(newImage, 0, 0);
       var first_text = document.querySelector('.first_text');
       context.font = '48px serif';
       context.textAlign = 'end';
@@ -33,9 +35,9 @@ var app = {
 (function () {
 
   var createBtn = document.querySelector('.create');
-  createBtn.addEventListener('click',app.management.createCanvas, true);
+  createBtn.addEventListener('click',app.tools.createCanvas, true);
 
   var convertBtn = document.querySelector('.convert');
-  convertBtn.addEventListener('click',app.management.convertToCanvas, true);
+  convertBtn.addEventListener('click',app.tools.convertToCanvas, true);
 
 })();
