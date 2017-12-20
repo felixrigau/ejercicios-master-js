@@ -5,26 +5,26 @@ var app = {
     createCanvas: function () {
       image = document.querySelector('#image');
       canvas = document.querySelector('#canvas');
+
       canvas.width = image.width;
 	    canvas.height = image.height;
+
       var context = canvas.getContext('2d');
       context.drawImage(image, 0, 0);
-
       var first_text = document.querySelector('.first_text');
-      context.drawImage(image, 0, 0);
       context.font = '48px serif';
       context.textAlign = 'end';
       context.fillStyle = 'white';
       context.fillText(first_text.value, 100, 100);
-
-      image.classList.add('hidden');
+      image.classList.toggle('hidden');
+      canvas.classList.toggle('hidden');
     },
     convertToCanvas: function () {
-      var newImage = new Image();
-	    newImage.src = canvas.toDataURL("image/png");
-	    image = newImage;
-      image.classList.remove('hidden');
-      canvas.classList.add('hidden');
+      image = document.querySelector('#image');
+      canvas = document.querySelector('#canvas');
+	    image.src = canvas.toDataURL("image/png");
+      image.classList.toggle('hidden');
+      canvas.classList.toggle('hidden');
     }
   },
 

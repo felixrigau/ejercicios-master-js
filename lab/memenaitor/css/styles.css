@@ -1,3 +1,6 @@
+.general-container{
+  display: flex;
+}
 .image{
   background: url(../images/ronaldo.jpg) center center;
   background-size: 166%;
@@ -19,6 +22,10 @@
   color: #34495e;
   font-weight: bold;
   cursor: pointer;
+}
+
+.first_text{
+  display: block;
 }
 
 .create {
