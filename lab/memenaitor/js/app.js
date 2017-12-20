@@ -12,7 +12,7 @@ var app = {
 	    canvas.height = image.height;
 
       var context = canvas.getContext('2d');
-      context.drawImage(newImage, 0, 0);
+      context.drawImage(image, 0, 0);
       var first_text = document.querySelector('.first_text');
       context.font = '48px serif';
       context.textAlign = 'end';
