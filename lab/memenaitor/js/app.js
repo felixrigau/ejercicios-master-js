@@ -1,7 +1,7 @@
 var app = {
   canvas:null,
   image:null,
-  management:{
+  tools:{
     createCanvas: function () {
       image = document.querySelector('#image');
       canvas = document.querySelector('#canvas');
@@ -19,6 +19,7 @@ var app = {
       image.classList.toggle('hidden');
       canvas.classList.toggle('hidden');
     },
+
     convertToCanvas: function () {
       image = document.querySelector('#image');
       canvas = document.querySelector('#canvas');
@@ -27,12 +28,6 @@ var app = {
       canvas.classList.toggle('hidden');
     }
   },
-
-  tools:{
-    test: function () {
-
-    }
-  }
 };
 
 (function () {
