@@ -15,9 +15,7 @@ var app = {
      */
     createImage: function (image, textAbove, textBelow, properties) {
       var canvas = document.createElement('canvas'),
-          context = canvas.getContext('2d'),
-          textAbove = document.querySelector('.first_text').value,
-          textBelow = document.querySelector('.second_text').value;
+          context = canvas.getContext('2d');
 
       image.width > 0 ? canvas.width = image.width : canvas.width = 300
       image.height > 0 ? canvas.height = image.height : canvas.height = 300
@@ -28,11 +26,11 @@ var app = {
       context.textAlign = 'center';
       context.textBaseline = 'hanging';
 
-      if (topText) {
-        context.fillText(topText, canvas.width/2, properties.textPadding);
+      if (textAbove) {
+        context.fillText(textAbove, canvas.width/2, properties.textPadding);
       }
-      if (bottomText) {
-        context.fillText(bottomText, canvas.width/2, canvas.height - properties.textSize - properties.textPadding);
+      if (textBelow) {
+        context.fillText(textBelow, canvas.width/2, canvas.height - properties.textSize - properties.textPadding);
       }
 
       image.src = canvas.toDataURL(properties.imageFormat);
@@ -50,7 +48,7 @@ var app = {
             imageFormat: 'image/png'
           };
 
-      app.tools.createCanvas(image, textAbove, textBelow, properties);
+      app.tools.createImage(image, textAbove, textBelow, properties);
     }
   },
 };
