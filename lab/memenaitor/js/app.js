@@ -2,24 +2,40 @@ var app = {
   canvas:null,
   image:null,
   tools:{
-    createCanvas: function () {
-      image = document.querySelector('#image');
-      canvas = document.querySelector('#canvas');
-      // var newImage = new Image();
-      // newImage.src = image.src;
+    /**
+     * This method create a new image with texts, using the html5 canvas.
+     * @param {htmlTag} image - The image to transform.
+     * @param {string} textAbove - The text above of the image.
+     * @param {string} textBelow - The text below of the image.
+     * @param {object} properties - Set of properties for the texts and image.
+     * @param {number} properties.textSize - The font size for both texts
+     * @param {string} properties.textColor - The color (hex format) for both texts
+     * @param {number} properties.textPadding - Padding top for the text above et padding bottom fot the text below
+     * @param {string} properties.imageFormat - Format to image. ex. 'image/png'
+     */
+    createImage: function (image, textAbove, textBelow, properties) {
+      var canvas = document.createElement('canvas'),
+          context = canvas.getContext('2d'),
+          textAbove = document.querySelector('.first_text').value,
+          textBelow = document.querySelector('.second_text').value;
 
-      canvas.width = image.width;
-	    canvas.height = image.height;
+      image.width > 0 ? canvas.width = image.width : canvas.width = 300
+      image.height > 0 ? canvas.height = image.height : canvas.height = 300
 
-      var context = canvas.getContext('2d');
       context.drawImage(image, 0, 0);
-      var first_text = document.querySelector('.first_text');
-      context.font = '48px serif';
-      context.textAlign = 'end';
-      context.fillStyle = 'white';
-      context.fillText(first_text.value, 100, 100);
-      image.classList.toggle('hidden');
-      canvas.classList.toggle('hidden');
+      context.font = properties.textSize +'px helvetica';
+      context.fillStyle = properties.textColor;
+      context.textAlign = 'center';
+      context.textBaseline = 'hanging';
+
+      if (topText) {
+        context.fillText(topText, canvas.width/2, properties.textPadding);
+      }
+      if (bottomText) {
+        context.fillText(bottomText, canvas.width/2, canvas.height - properties.textSize - properties.textPadding);
+      }
+
+      image.src = canvas.toDataURL(properties.imageFormat);
     },
 
     convertToCanvas: function () {
@@ -28,6 +44,21 @@ var app = {
 	    image.src = canvas.toDataURL("image/png");
       image.classList.toggle('hidden');
       canvas.classList.toggle('hidden');
+    },
+
+    create: function () {
+
+      var image = document.querySelector('#image'),
+          textAbove = document.querySelector('.first_text').value,
+          textBelow = document.querySelector('.second_text').value,
+          properties = {
+            textSize: 50,
+            textColor: '#FFF',
+            textPadding: 10,
+            imageFormat: 'image/png'
+          };
+
+      app.tools.createCanvas(image, textAbove, textBelow, properties);
     }
   },
 };
@@ -35,10 +66,7 @@ var app = {
 (function () {
 
   var createBtn = document.querySelector('.create');
-  createBtn.addEventListener('click',app.tools.createCanvas, true);
-
-  var convertBtn = document.querySelector('.convert');
-  convertBtn.addEventListener('click',app.tools.convertToCanvas, true);
+  createBtn.addEventListener('click',app.tools.create, true);
 
 })();
 
