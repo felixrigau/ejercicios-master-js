@@ -38,14 +38,6 @@ var app = {
       image.src = canvas.toDataURL(properties.imageFormat);
     },
 
-    convertToCanvas: function () {
-      image = document.querySelector('#image');
-      canvas = document.querySelector('#canvas');
-	    image.src = canvas.toDataURL("image/png");
-      image.classList.toggle('hidden');
-      canvas.classList.toggle('hidden');
-    },
-
     create: function () {
 
       var image = document.querySelector('#image'),
