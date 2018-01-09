@@ -33,7 +33,7 @@ var app = {
         context.fillText(textBelow, canvas.width/2, canvas.height - properties.textSize - properties.textPadding);
       }
 
-      image.src = canvas.toDataURL(properties.imageFormat);
+      return canvas.toDataURL(properties.imageFormat);
     },
 
     create: function () {
