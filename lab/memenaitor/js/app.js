@@ -12,6 +12,7 @@ var app = {
      * @param {string} properties.textColor - The color (hex format) for both texts
      * @param {number} properties.textPadding - Padding top for the text above et padding bottom fot the text below
      * @param {string} properties.imageFormat - Format to image. ex. 'image/png'
+     * @returns {string} Return a Base64 DataURI string of the new image
      */
     createImage: function (image, textAbove, textBelow, properties) {
       var canvas = document.createElement('canvas'),
