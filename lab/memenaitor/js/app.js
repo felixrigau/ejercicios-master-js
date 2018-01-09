@@ -60,7 +60,3 @@ var app = {
   createBtn.addEventListener('click',app.tools.create, true);
 
 })();
-
-//https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image
-//https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes
-//https://stackoverflow.com/questions/38275740/chrome-tainted-canvases-may-not-be-exported-offline-only-app
