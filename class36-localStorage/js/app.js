@@ -46,9 +46,9 @@ var app = {
 
   events:{
     updateList: function () {
-      // window.addEventListener('storage', function(event){
-      //   console.info("Se registran cambios en "+event.key+". El valor pasó de ser "+event.oldValue+" a "+event.newValue+".\nRecuerda que estas en "+event.url+" y usando el almacenamiento ", event.storageArea);
-      // });
+      window.addEventListener('storage', function(event){
+        console.info("Se registran cambios en "+event.key+". El valor pasó de ser "+event.oldValue+" a "+event.newValue+".\nRecuerda que estas en "+event.url+" y usando el almacenamiento ", event.storageArea);
+      });
     }
   },
 
