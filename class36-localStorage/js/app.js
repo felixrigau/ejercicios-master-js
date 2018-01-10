@@ -49,6 +49,22 @@ var app = {
       window.addEventListener('storage', function(event){
         console.info("Se registran cambios en "+event.key+". El valor pasó de ser "+event.oldValue+" a "+event.newValue+".\nRecuerda que estas en "+event.url+" y usando el almacenamiento ", event.storageArea);
       });
+    },
+
+    addEListenerAddButton:function () {
+      var addButton = document.querySelector('.add');
+      addButton.addEventListener('click',function () {
+        var name = document.querySelector('.name').value,
+            phone = document.querySelector('.phone').value,
+            email = document.querySelector('.email').value;
+        var contact = {
+          name:name,
+          phone:phone,
+          email:email,
+          image:'https://api.adorable.io/avatars/285/'+email+'.png';
+        }
+        //TODO Continuar el metodo
+      });
     }
   },
 
@@ -85,7 +101,7 @@ var app = {
 };
 
 (function () {
-
+  app.events.addEListenerAddButton();
 })();
 
 
