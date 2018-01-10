@@ -1,8 +1,37 @@
 var app = {
   management:{
-    method: function () {
-      app.tools.makeRequest('GET', 'http://airemad.com/api/v1/station/S024', true, app.renderView.test);
+    addContact: function (contact) {
+      if (contact && contact.name && contact.phone && contact.email) {
+        localStorage.setItem(contact.email,JSON.stringify(contact));
+      }else {
+        console.log("You must fill in all the data");
+      }
     },
+
+     removeContact: function (key) {
+       if (key) {
+         localStorage.removeItem(key)
+       }else {
+         console.log("You must enter the mail");
+       }
+     },
+
+     removeAllContacts(){
+       localStorage.clear();
+     },
+
+     getContact:function (key) {
+       if (key) {
+         var contact = localStorage.getItem(key);
+         if (contact) {
+           return JSON.parse(contact);
+         }else {
+           console.log("The searched contact don't exist");
+         }
+       } else {
+         console.log("You must enter the mail");
+       }
+     }
   },
 
   renderView:{
@@ -16,7 +45,11 @@ var app = {
   },
 
   events:{
-
+    updateList: function () {
+      // window.addEventListener('storage', function(event){
+      //   console.info("Se registran cambios en "+event.key+". El valor pasó de ser "+event.oldValue+" a "+event.newValue+".\nRecuerda que estas en "+event.url+" y usando el almacenamiento ", event.storageArea);
+      // });
+    }
   },
 
   animation:{
@@ -54,3 +87,10 @@ var app = {
 (function () {
 
 })();
+
+
+var contact = {
+  name:"Felix",
+  phone:"653789823",
+  email:"felix@example.com"
+}
