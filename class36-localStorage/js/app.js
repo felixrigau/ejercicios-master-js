@@ -54,16 +54,16 @@ var app = {
     addEListenerAddButton:function () {
       var addButton = document.querySelector('.add');
       addButton.addEventListener('click',function () {
-        var name = document.querySelector('.name').value,
-            phone = document.querySelector('.phone').value,
-            email = document.querySelector('.email').value;
+        var name = document.querySelector('.inputName').value,
+            phone = document.querySelector('.inputPhone').value,
+            email = document.querySelector('.inputEmail').value;
         var contact = {
-          name:name,
-          phone:phone,
-          email:email,
-          image:'https://api.adorable.io/avatars/285/'+email+'.png';
+          'name':name,
+          'phone':phone,
+          'email':email,
+          'image':'https://api.adorable.io/avatars/285/'+email+'.png'
         }
-        //TODO Continuar el metodo
+        localStorage.setItem(email,JSON.stringify(contact));
       });
     }
   },
