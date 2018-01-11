@@ -3,16 +3,20 @@ var app = {
     addContact: function (contact) {
       if (contact && contact.name && contact.phone && contact.email) {
         localStorage.setItem(contact.email,JSON.stringify(contact));
+        return true;
       }else {
         console.log("You must fill in all the data");
+        return false;
       }
     },
 
      removeContact: function (key) {
        if (key) {
-         localStorage.removeItem(key)
+         localStorage.removeItem(key);
+         return true;
        }else {
          console.log("You must enter the mail");
+         return false;
        }
      },
 
@@ -31,10 +35,40 @@ var app = {
        } else {
          console.log("You must enter the mail");
        }
+     },
+
+     listContact:function () {
+       var contact;
+       app.renderView.clearContactList();
+       for (var key in localStorage) {
+         if (localStorage.hasOwnProperty(key)) {
+           contact = JSON.parse(localStorage.getItem(key));
+           app.renderView.createContactLiItem(contact);
+         }
+       }
      }
   },
 
   renderView:{
+    createContactLiItem:function (contact) {
+      var contactListTag = document.querySelector('.contact-list');
+      contactListTag.innerHTML += "<li class=\"contact-item\">"+
+        "<img src=\"https:\/\/api.adorable.io/avatars/285/"+contact.email+".png\">"+
+        "<div class=\"datas\">"+
+          "<p class=\"name\">"+contact.name+"</p>"+
+          "<p class=\"phone\">"+contact.phone+"</p>"+
+          "<p class=\"email\">"+contact.email+"</p>"+
+        "</div>"+
+        "<div class=\"actions\">"+
+          "<p class=\"edit\">edit</p>"+
+          "<p class=\"removeº\">remove</p>"+
+        "</div>"+
+      "</li>";
+    },
+
+    clearContactList:function () {
+      document.querySelector('.contact-list').innerHTML = '';
+    },
 
     test:function (json) {
       if (json) {
@@ -63,15 +97,20 @@ var app = {
           'email':email,
           'image':'https://api.adorable.io/avatars/285/'+email+'.png'
         }
-        app.management.addContact(contact);
+        if (app.management.addContact(contact)) {
+          app.management.listContact();
+        } else {
+
+        }
       });
     },
 
-    addEListenerAddButton:function () {
+    addEListenerClearButton:function () {
       var addButton = document.querySelector('.clear');
       addButton.addEventListener('click',function () {
         app.management.removeAllContacts();
       });
+      app.renderView.clearContactList();
     }
   },
 
@@ -109,6 +148,8 @@ var app = {
 
 (function () {
   app.events.addEListenerAddButton();
+  app.events.addEListenerClearButton();
+  app.management.listContact();
 })();
 
 
