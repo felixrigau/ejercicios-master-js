@@ -63,7 +63,14 @@ var app = {
           'email':email,
           'image':'https://api.adorable.io/avatars/285/'+email+'.png'
         }
-        localStorage.setItem(email,JSON.stringify(contact));
+        app.management.addContact(contact);
+      });
+    },
+
+    addEListenerAddButton:function () {
+      var addButton = document.querySelector('.clear');
+      addButton.addEventListener('click',function () {
+        app.management.removeAllContacts();
       });
     }
   },
