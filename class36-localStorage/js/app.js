@@ -52,7 +52,7 @@ var app = {
   renderView:{
     createContactLiItem:function (contact) {
       var contactListTag = document.querySelector('.contact-list');
-      contactListTag.innerHTML += "<li class=\"contact-item\">"+
+      contactListTag.innerHTML += "<li class=\"contact-item\" data-id=\""+contact.email+"\">"+
         "<img src=\"https:\/\/api.adorable.io/avatars/285/"+contact.email+".png\">"+
         "<div class=\"datas\">"+
           "<p class=\"name\">"+contact.name+"</p>"+
@@ -60,8 +60,8 @@ var app = {
           "<p class=\"email\">"+contact.email+"</p>"+
         "</div>"+
         "<div class=\"actions\">"+
-          "<p class=\"edit\" data-action=\"edit\">edit</p>"+
-          "<p class=\"remove\" data-action=\"remove\">remove</p>"+
+          "<span class=\"edit button\" data-action=\"edit\">edit</span>"+
+          "<span class=\"remove button\" data-action=\"remove\">remove</span>"+
         "</div>"+
       "</li>";
     },
@@ -111,6 +111,21 @@ var app = {
         app.management.removeAllContacts();
       });
       app.renderView.clearContactList();
+    },
+
+    addEListenerContactList:function () {
+      var contactListTag = document.querySelector('.contact-list');
+      contactListTag.addEventListener('click',function (e) {
+        if (e.target.nodeName === 'SPAN') {
+          if (e.target.getAttribute('data-action') === 'remove') {
+            if (app.management.removeContact(e.target.parentNode.parentNode.getAttribute('data-id'))) {
+              app.management.listContact();
+            }
+          } else {
+
+          }
+        }
+      });
     }
   },
 
@@ -149,6 +164,7 @@ var app = {
 (function () {
   app.events.addEListenerAddButton();
   app.events.addEListenerClearButton();
+  app.events.addEListenerContactList();
   app.management.listContact();
 })();
 

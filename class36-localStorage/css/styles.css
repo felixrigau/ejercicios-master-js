@@ -20,6 +20,7 @@
   color: #34495e;
   font-weight: bold;
   cursor: pointer;
+  margin-top: 0px;
 }
 .buttons{
   display: flex;
@@ -33,9 +34,11 @@
 }
 .edit{
   background-color: #f4a527;
+  display: block;
 }
 .remove{
   background-color: #e74c3c;
+  display: block;
 }
 .contact-list{
   display: flex;
