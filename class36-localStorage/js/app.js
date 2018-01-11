@@ -61,7 +61,7 @@ var app = {
         "</div>"+
         "<div class=\"actions\">"+
           "<p class=\"edit\">edit</p>"+
-          "<p class=\"removeº\">remove</p>"+
+          "<p class=\"remove\">remove</p>"+
         "</div>"+
       "</li>";
     },
