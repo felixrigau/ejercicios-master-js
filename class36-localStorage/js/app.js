@@ -60,8 +60,8 @@ var app = {
           "<p class=\"email\">"+contact.email+"</p>"+
         "</div>"+
         "<div class=\"actions\">"+
-          "<p class=\"edit\">edit</p>"+
-          "<p class=\"remove\">remove</p>"+
+          "<p class=\"edit\" data-action=\"edit\">edit</p>"+
+          "<p class=\"remove\" data-action=\"remove\">remove</p>"+
         "</div>"+
       "</li>";
     },
