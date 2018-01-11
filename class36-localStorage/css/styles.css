@@ -29,6 +29,12 @@
   background-color: #2ecc71;
 }
 .clear{
+  background-color: #c0392b;
+}
+.edit{
+  background-color: #f4a527;
+}
+.remove{
   background-color: #e74c3c;
 }
 .contact-list{
