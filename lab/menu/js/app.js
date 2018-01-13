@@ -1,5 +1,6 @@
 var menu = {
   selectedProductItem:null,
+  selectedSubproductItem:null,
   sceneContainer:null,
   desktop:null,
   behavior:{
@@ -9,7 +10,6 @@ var menu = {
           scene1 = sceneContainer.querySelector('.scene1'),
           scene2 = sceneContainer.querySelector('.scene2'),
           itemMenuChilds,
-          selectedSubproductItem = null,
           subMenuList = null;
       //Get all child tags contained in the clicked item
       //*this* equals *event.currentTarget* within the function invoked in a addEventListener()
@@ -32,10 +32,11 @@ var menu = {
       //Add product's name to the navigation bar
       selectedProductItem = this.previousElementSibling.innerText;
       document.querySelector('.menu__selected-item').innerText = selectedProductItem;
-      //Hide the logo
-      document.querySelector('.menu__logo').classList.toggle('hidden');
       //Show the back button
       document.querySelector('.menu__back-icon').classList.toggle('hidden');
+      //Hide the menu-actions sceneContainer
+      document.querySelector('.menu__user-actions').classList.toggle('hidden');
+
     },
 
     nextButtonSecondScene:function(event){
@@ -87,7 +88,25 @@ var menu = {
         window.setTimeout(function functionName() {
           //Wait 1s to due to the css transition for the left property of menu
           menuTag.classList.toggle('show');
+          menu.tools.getSceneContainer().style.width = window.innerWidth+'px';
         }, 1000);
+        var activeScene = document.querySelector('.active'),
+            scene1 = menu.tools.getSceneContainer().querySelector('.scene1'),
+            scene2 = menu.tools.getSceneContainer().querySelector('.scene2'),
+            scene3 = menu.tools.getSceneContainer().querySelector('.scene3');
+            document.querySelector('.menu__back-icon').classList.add('hidden');
+            document.querySelector('.menu__selected-item').innerText = '';
+        if (activeScene.classList.contains('scene1')) {
+
+        } else{
+          scene2.innerHTML = '';
+          scene3.innerHTML = '';
+          menu.tools.getSceneContainer().style.left = '0px';
+          scene1.classList.add('active');
+          scene1.classList.remove('active');
+          scene1.classList.remove('active');
+          document.querySelector('.menu__user-actions').classList.remove('hidden');
+        }
       });
     },
 
@@ -115,7 +134,7 @@ var menu = {
 
       backButton.addEventListener('click',function (){
         var activeScene = document.querySelector('.active'),
-            scene1 = sceneContainer.querySelector('.scene1');
+            scene1 = sceneContainer.querySelector('.scene1'),
             scene2 = sceneContainer.querySelector('.scene2');
 
           if (activeScene.classList.contains('scene2')) {
@@ -127,11 +146,12 @@ var menu = {
               activeScene.innerHTML = '';
               activeScene.classList.toggle('show');
             }, 1000);
-            document.querySelector('.menu__logo').classList.toggle('hidden');
             document.querySelector('.menu__back-icon').classList.toggle('hidden');
             activeScene.classList.toggle('active');
             scene1.classList.toggle('active');
             document.querySelector('.menu__selected-item').innerText = '';
+            //Show the user-actions container
+            document.querySelector('.menu__user-actions').classList.toggle('hidden');
           } else {
             //Else the third scene is active therefore we move the focus to the first scene
             //and clean the content within the third one
@@ -198,4 +218,4 @@ var menu = {
 })();
 
 //TODO
-//
+//problema en active de las scene
