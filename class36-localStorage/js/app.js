@@ -60,8 +60,8 @@ var app = {
           "<p class=\"email\">"+contact.email+"</p>"+
         "</div>"+
         "<div class=\"actions\">"+
-          "<span class=\"edit button\" data-action=\"edit\">edit</span>"+
-          "<span class=\"remove button\" data-action=\"remove\">remove</span>"+
+          "<span class=\"edit button\" data-action=\"edit\">Editar</span>"+
+          "<span class=\"remove button\" data-action=\"remove\">Eliminar</span>"+
         "</div>"+
       "</li>";
     },
@@ -69,7 +69,13 @@ var app = {
     clearContactList:function () {
       document.querySelector('.contact-list').innerHTML = '';
     },
-
+    
+    clearForm:function (argument) {
+      document.querySelector('.inputName').value = '';
+      document.querySelector('.inputPhone').value = '';
+      document.querySelector('.inputEmail').value = '';
+    },
+    
     test:function (json) {
       if (json) {
         var container = document.querySelector('.general-container');
@@ -99,6 +105,19 @@ var app = {
         }
         if (app.management.addContact(contact)) {
           app.management.listContact();
+          app.renderView.clearForm();
+        } else {
+
+        }
+      });
+    },
+    
+    addEListenerEditButton:function () {
+      var editButton = document.querySelector('.edit');
+      editButton.addEventListener('click',function () {
+        
+        if (app.management.addContact(contact)) {
+
         } else {
 
         }
@@ -109,8 +128,8 @@ var app = {
       var addButton = document.querySelector('.clear');
       addButton.addEventListener('click',function () {
         app.management.removeAllContacts();
+        app.renderView.clearContactList();
       });
-      app.renderView.clearContactList();
     },
 
     addEListenerContactList:function () {
