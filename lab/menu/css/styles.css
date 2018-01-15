@@ -14,12 +14,27 @@ li{
 header{
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+.header__wrapper{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 @media (min-width: 1200px) {
   .menu {
     overflow: hidden;
-    transition: all 1s;
     background-color: #FFF;
+  }
+  div.menu__top-bar,
+  .header__navigation-button{
+    display: none;
+  }
+  .menu__navigation{
+    display: flex;
+  }
+  .fa-angle-right {
+    transform: rotate(90deg);
   }
 }
 @media (max-width: 1199px) {
@@ -31,6 +46,9 @@ header{
     display: none;
     top: 0px;
     width: 100%;
+  }
+  .header__user{
+    display: none;
   }
 }
 .menu__user-actions {
@@ -47,21 +65,27 @@ header{
   justify-content: space-between;
   align-items: center;
 }
-.menu__selected-item{
-  transition: all 1s;
-}
-
 .menu__navigation-button{
   width: 16px;
   height: 16px;
   text-align: center;
 }
-.menu__scene-container {
-    display: flex;
-    left: 0px;
-    position: relative;
-    width: 100%;
-    transition: left 1s;
+@media (min-width: 1200px) {
+  .menu__scene-container {
+      display: flex;
+      left: 0px;
+      position: relative;
+      width: 100%;
+  }
+}
+@media (max-width: 1199px) {
+  .menu__scene-container {
+      display: flex;
+      left: 0px;
+      position: relative;
+      width: 100%;
+      transition: left 1s;
+  }
 }
 .scene1, .scene2, .scene3 {
   width: 100%;
@@ -84,7 +108,9 @@ header{
   align-items: center;
 }
 
-.menu__navigation-subproduct, .menu__navigation-item, .menu__related {
+.menu__navigation-subproduct,
+.menu__navigation-item,
+.menu__related {
   display: none;
 }
 

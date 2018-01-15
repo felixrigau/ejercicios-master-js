@@ -6,37 +6,40 @@ var menu = {
   behavior:{
 
     nextButtonFirstScene:function (event){
-      var sceneContainer = menu.tools.getSceneContainer(),
-          scene1 = sceneContainer.querySelector('.scene1'),
-          scene2 = sceneContainer.querySelector('.scene2'),
-          itemMenuChilds,
-          subMenuList = null;
-      //Get all child tags contained in the clicked item
-      //*this* equals *event.currentTarget* within the function invoked in a addEventListener()
-      itemMenuChilds = this.parentElement.childNodes;
-      //Add only the UL tags to the second scene
-      for (var i = 0; i < itemMenuChilds.length; i++) {
-        if (itemMenuChilds[i].nodeName === 'UL') {
-          scene2.appendChild(itemMenuChilds[i].cloneNode(true));
-          scene2.lastChild.classList.toggle('show');
+      if (menu.desktop) {
+        window.alert('menu desktop action')
+      } else {
+        var sceneContainer = menu.tools.getSceneContainer(),
+            scene1 = sceneContainer.querySelector('.scene1'),
+            scene2 = sceneContainer.querySelector('.scene2'),
+            itemMenuChilds,
+            subMenuList = null;
+        //Get all child tags contained in the clicked item
+        //*this* equals *event.currentTarget* within the function invoked in a addEventListener()
+        itemMenuChilds = this.parentElement.childNodes;
+        //Add only the UL tags to the second scene
+        for (var i = 0; i < itemMenuChilds.length; i++) {
+          if (itemMenuChilds[i].nodeName === 'UL') {
+            scene2.appendChild(itemMenuChilds[i].cloneNode(true));
+            scene2.lastChild.classList.toggle('show');
+          }
         }
+        //Add a event listener for each button of the second scene
+        menu.events.addEListenerToNextButtonSecondScene(scene2);
+        //Move the focus to the second scene
+        sceneContainer.style.width = (window.innerWidth*2).toString() + 'px';
+        scene2.classList.toggle('show');
+        sceneContainer.style.left = '-'+window.innerWidth.toString()+'px';
+        scene1.classList.toggle('active');
+        scene2.classList.toggle('active');
+        //Add product's name to the navigation bar
+        selectedProductItem = this.previousElementSibling.innerText;
+        document.querySelector('.menu__selected-item').innerText = selectedProductItem;
+        //Show the back button
+        document.querySelector('.menu__back-icon').classList.toggle('hidden');
+        //Hide the menu-actions sceneContainer
+        document.querySelector('.menu__user-actions').classList.toggle('hidden');
       }
-      //Add a event listener for each button of the second scene
-      menu.events.addEListenerToNextButtonSecondScene(scene2);
-      //Move the focus to the second scene
-      sceneContainer.style.width = (window.innerWidth*2).toString() + 'px';
-      scene2.classList.toggle('show');
-      sceneContainer.style.left = '-'+window.innerWidth.toString()+'px';
-      scene1.classList.toggle('active');
-      scene2.classList.toggle('active');
-      //Add product's name to the navigation bar
-      selectedProductItem = this.previousElementSibling.innerText;
-      document.querySelector('.menu__selected-item').innerText = selectedProductItem;
-      //Show the back button
-      document.querySelector('.menu__back-icon').classList.toggle('hidden');
-      //Hide the menu-actions sceneContainer
-      document.querySelector('.menu__user-actions').classList.toggle('hidden');
-
     },
 
     nextButtonSecondScene:function(event){
@@ -73,6 +76,7 @@ var menu = {
 
       navigationButton.addEventListener('click',function (){
         menuTag.classList.toggle('show');
+        menuTag.classList.add('collapsed');
         window.setTimeout(function functionName() {
           menuTag.style.left = '0px';
         });
@@ -85,30 +89,32 @@ var menu = {
 
       closeButton.addEventListener('click',function (){
         menuTag.style.left = window.innerWidth+'px';
-        window.setTimeout(function functionName() {
-          //Wait 1s to due to the css transition for the left property of menu
-          menuTag.classList.toggle('show');
-          menu.tools.getSceneContainer().style.width = window.innerWidth+'px';
-        }, 1000);
-        var activeScene = document.querySelector('.active'),
-            scene1 = menu.tools.getSceneContainer().querySelector('.scene1'),
-            scene2 = menu.tools.getSceneContainer().querySelector('.scene2'),
-            scene3 = menu.tools.getSceneContainer().querySelector('.scene3');
-            document.querySelector('.menu__back-icon').classList.add('hidden');
-            document.querySelector('.menu__selected-item').innerText = '';
-        if (activeScene.classList.contains('scene1')) {
-
-        } else{
-          scene2.innerHTML = '';
-          scene3.innerHTML = '';
-          menu.tools.getSceneContainer().style.left = '0px';
-          scene1.classList.add('active');
-          scene2.classList.remove('active');
-          scene2.classList.remove('show');
-          scene3.classList.remove('active');
-          scene3.classList.remove('show');
-          document.querySelector('.menu__user-actions').classList.remove('hidden');
-        }
+        //Reset collapsed state's menu
+        menuTag.classList.remove('collapsed');
+        // window.setTimeout(function functionName() {
+        //   //Wait 1s to due to the css transition for the left property of menu
+        //   menuTag.classList.toggle('show');
+        //   menu.tools.getSceneContainer().style.width = window.innerWidth+'px';
+        // }, 1000);
+        // //Reset all secundaries scenes
+        // var activeScene = document.querySelector('.active'),
+        //     scene1 = menu.tools.getSceneContainer().querySelector('.scene1'),
+        //     scene2 = menu.tools.getSceneContainer().querySelector('.scene2'),
+        //     scene3 = menu.tools.getSceneContainer().querySelector('.scene3');
+        // if (!activeScene.classList.contains('scene1')) {
+        //   scene2.innerHTML = '';
+        //   scene3.innerHTML = '';
+        //   menu.tools.getSceneContainer().style.left = '0px';
+        //   scene1.classList.add('active');
+        //   scene2.classList.remove('active');
+        //   scene2.classList.remove('show');
+        //   scene3.classList.remove('active');
+        //   scene3.classList.remove('show');
+        //   document.querySelector('.menu__user-actions').classList.remove('hidden');
+        // }
+        // //Reset menu__top-bar's elements
+        // document.querySelector('.menu__back-icon').classList.add('hidden');
+        // document.querySelector('.menu__selected-item').innerText = '';
       });
     },
 
@@ -171,14 +177,68 @@ var menu = {
           }
       });
     },
+
     windowResize:function () {
       var menuTag = document.querySelector('.menu');
       window.addEventListener('resize',function functionName() {
-        if (window.innerWidth >= 1200) {
-          menu.desktop = true;
+        if (menu.tools.isDesktop()) {
+          //Reset inline style for the menu__scene-container
+          document.querySelector('.menu__scene-container').style = '';
+          //Reset all secundaries scenes
+          var activeScene = document.querySelector('.active'),
+              scene1 = menu.tools.getSceneContainer().querySelector('.scene1'),
+              scene2 = menu.tools.getSceneContainer().querySelector('.scene2'),
+              scene3 = menu.tools.getSceneContainer().querySelector('.scene3');
+          if (!activeScene.classList.contains('scene1')) {
+            scene2.innerHTML = '';
+            scene3.innerHTML = '';
+            menu.tools.getSceneContainer().style.left = '0px';
+            scene1.classList.add('active');
+            scene2.classList.remove('active');
+            scene2.classList.remove('show');
+            scene3.classList.remove('active');
+            scene3.classList.remove('show');
+            document.querySelector('.menu__user-actions').classList.remove('hidden');
+          }
+          //Reset menu__top-bar's elements
+          document.querySelector('.menu__back-icon').classList.add('hidden');
+          document.querySelector('.menu__selected-item').innerText = '';
+          //Reset collapsed state's menu
+          menuTag.classList.remove('collapsed');
         } else {
-          menu.desktop = false;
-          menuTag.style.left = window.innerWidth;
+
+        }
+      });
+    },
+
+    addEListenerTransitionFinished:function () {
+      document.querySelector('.menu').addEventListener('webkitTransitionEnd',function (e) {
+        if (e.target.classList.contains('menu') && !e.target.classList.contains('collapsed')) {
+          var menuTag = document.querySelector('.menu');
+          menuTag.classList.remove('show');
+          menu.tools.getSceneContainer().style.width = window.innerWidth+'px';
+          //Reset all secundaries scenes
+          var activeScene = document.querySelector('.active'),
+              scene1 = menu.tools.getSceneContainer().querySelector('.scene1'),
+              scene2 = menu.tools.getSceneContainer().querySelector('.scene2'),
+              scene3 = menu.tools.getSceneContainer().querySelector('.scene3');
+          if (!activeScene.classList.contains('scene1')) {
+            scene2.innerHTML = '';
+            scene3.innerHTML = '';
+            menu.tools.getSceneContainer().style.left = '0px';
+            scene1.classList.add('active');
+            scene2.classList.remove('active');
+            scene2.classList.remove('show');
+            scene3.classList.remove('active');
+            scene3.classList.remove('show');
+            document.querySelector('.menu__user-actions').classList.remove('hidden');
+          }
+          //Reset menu__top-bar's elements
+          document.querySelector('.menu__back-icon').classList.add('hidden');
+          document.querySelector('.menu__selected-item').innerText = '';
+          //Reset collapsed state's menu
+          menuTag.classList.remove('collapsed');
+          // window.alert('termine')
         }
       });
     }
@@ -197,27 +257,26 @@ var menu = {
         return document.querySelector('.menu__scene-container');
       }
     },
-
     isDesktop:function () {
       if (window.innerWidth >= 1200) {
         menu.desktop = true;
       } else {
         menu.desktop = false;
-        var menuTag = document.querySelector('.menu');
-        menuTag.style.left = window.innerWidth+'px';
       }
+      return menu.desktop;
     }
   }
 };
 
 (function () {
+  menu.tools.isDesktop();
   menu.events.addEListenerToNavigationButton();
   menu.events.addEListenerToCloseButton();
   menu.events.addEListenerToNextButtonFirstScene();
   menu.events.addBehaviorToBackButton();
   menu.events.windowResize();
-  menu.tools.isDesktop();
+  menu.events.addEListenerTransitionFinished();
 })();
 
 //TODO
-//problema en active de las scene
+//
