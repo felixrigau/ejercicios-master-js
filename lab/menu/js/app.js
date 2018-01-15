@@ -103,8 +103,10 @@ var menu = {
           scene3.innerHTML = '';
           menu.tools.getSceneContainer().style.left = '0px';
           scene1.classList.add('active');
-          scene1.classList.remove('active');
-          scene1.classList.remove('active');
+          scene2.classList.remove('active');
+          scene2.classList.remove('show');
+          scene3.classList.remove('active');
+          scene3.classList.remove('show');
           document.querySelector('.menu__user-actions').classList.remove('hidden');
         }
       });
