@@ -22,8 +22,13 @@ header{
   align-items: center;
 }
 @media (min-width: 1200px) {
+  .submenu-desktop{
+    position: absolute;
+    top: 48px;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
   .menu {
-    overflow: hidden;
     background-color: #FFF;
   }
   div.menu__top-bar,
@@ -38,6 +43,9 @@ header{
   }
 }
 @media (max-width: 1199px) {
+  .submenu-desktop{
+    display: none;
+  }
   .menu {
     overflow: hidden;
     transition: all 1s;
@@ -48,6 +56,11 @@ header{
     width: 100%;
   }
   .header__user{
+    display: none;
+  }
+  .menu__navigation-subproduct,
+  .menu__navigation-item,
+  .menu__navigation-related {
     display: none;
   }
 }
@@ -110,7 +123,7 @@ header{
 
 .menu__navigation-subproduct,
 .menu__navigation-item,
-.menu__related {
+.menu__navigation-related {
   display: none;
 }
 
@@ -126,4 +139,15 @@ header{
 }
 .show{
   display: block;
+}
+.visible{
+  opacity: 1;
+}
+.test{
+  display: block;
+  position: absolute;
+  background-color: #ffadad;
+  width: 100px;
+  height: 100px;
+  top: 48px;
 }
