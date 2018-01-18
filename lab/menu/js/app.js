@@ -12,15 +12,14 @@ var menu = {
         var sceneContainer = menu.tools.getSceneContainer(),
             scene1 = sceneContainer.querySelector('.scene1'),
             scene2 = sceneContainer.querySelector('.scene2'),
-            itemMenuChilds,
+            menuLevel1Childs,
             subMenuList = null;
-        //Get all child tags contained in the clicked item
-        //*this* equals *event.currentTarget* within the function invoked in a addEventListener()
-        itemMenuChilds = this.parentElement.childNodes;
+        //Get all ul child tags contained in the clicked item
+        menuLevel1Childs = this.parentElement.querySelectorAll('.menu__level1>ul');
         //Add only the UL tags to the second scene
-        for (var i = 0; i < itemMenuChilds.length; i++) {
-          if (itemMenuChilds[i].nodeName === 'UL') {
-            scene2.appendChild(itemMenuChilds[i].cloneNode(true));
+        for (var i = 0; i < menuLevel1Childs.length; i++) {
+          if (menuLevel1Childs[i].nodeName === 'UL') {
+            scene2.appendChild(menuLevel1Childs[i].cloneNode(true));
             scene2.lastChild.classList.toggle('show');
           }
         }

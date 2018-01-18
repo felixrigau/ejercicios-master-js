@@ -43,9 +43,9 @@ header{
     position: absolute;
     top: 48px;
   }
-  /*.menu__product:hover .menu__navigation-related{
+  .menu__product:hover .menu__navigation-related{
     display:block;
-  }*/
+  }
   .menu__product:hover .menu__level2{
     display: block;
   }
@@ -90,14 +90,6 @@ header{
   width: 16px;
   height: 16px;
   text-align: center;
-}
-@media (min-width: 1200px) {
-  .menu__scene-container {
-      display: flex;
-      left: 0px;
-      position: relative;
-      width: 100%;
-  }
 }
 @media (max-width: 1199px) {
   .menu__scene-container {
