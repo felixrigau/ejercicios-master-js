@@ -23,7 +23,6 @@ header{
 }
 @media (min-width: 1200px) {
   .menu {
-    overflow: hidden;
     background-color: #FFF;
   }
   div.menu__top-bar,
@@ -35,6 +34,43 @@ header{
   }
   .fa-angle-right {
     transform: rotate(90deg);
+    margin-left: 8px;
+  }
+  .menu__level1 .menu__icon-container{
+    display: none;
+  }
+  .menu__product{
+    padding: 0 24px;
+  }
+  .menu__product:hover .menu__level1{
+    display: block;
+    position: absolute;
+    top: 48px;
+  }
+  .menu__product:hover .menu__navigation-related{
+    display:block;
+  }
+  .menu__product:hover .menu__level2{
+    display: block;
+  }
+  .menu__subproduct.column, .column {
+    display: table-cell;
+  }
+  .menu a {
+    white-space: nowrap;
+  }
+  .triangle {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -8px;
+    width: 0;
+    height: 0;
+    border-bottom: 8px solid white;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    z-index: 1;
   }
 }
 @media (max-width: 1199px) {
@@ -49,6 +85,21 @@ header{
   }
   .header__user{
     display: none;
+  }
+  .menu__level2,
+  .menu__level1,
+  .menu__navigation-related {
+    display: none;
+  }
+  .triangle {
+    display: none;
+  }
+  .menu__icon-container {
+    width:48px;
+    height:48px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
   }
 }
 .menu__user-actions {
@@ -70,14 +121,6 @@ header{
   height: 16px;
   text-align: center;
 }
-@media (min-width: 1200px) {
-  .menu__scene-container {
-      display: flex;
-      left: 0px;
-      position: relative;
-      width: 100%;
-  }
-}
 @media (max-width: 1199px) {
   .menu__scene-container {
       display: flex;
@@ -93,25 +136,19 @@ header{
 .scene2, .scene3 {
   display: none;
 }
-.menu__icon-container {
-  width:48px;
-  height:48px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
 
 .menu__product,.menu__subproduct {
   background-color: #8897AA;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
-.menu__navigation-subproduct,
-.menu__navigation-item,
-.menu__related {
+.menu__level1,
+.menu__navigation-related {
   display: none;
+  transition: display 0.4s;
 }
 
 .menu__subproduct {
@@ -126,4 +163,15 @@ header{
 }
 .show{
   display: block;
+}
+.visible{
+  opacity: 1;
+}
+.test{
+  display: block;
+  position: absolute;
+  background-color: #ffadad;
+  width: 100px;
+  height: 100px;
+  top: 48px;
 }
