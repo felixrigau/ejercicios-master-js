@@ -34,12 +34,16 @@ header{
   }
   .fa-angle-right {
     transform: rotate(90deg);
+    margin-left: 8px;
   }
   .menu__level1 .menu__icon-container{
     display: none;
   }
+  .menu__product{
+    padding: 0 24px;
+  }
   .menu__product:hover .menu__level1{
-    display: table;
+    display: block;
     position: absolute;
     top: 48px;
   }
@@ -51,6 +55,22 @@ header{
   }
   .menu__subproduct.column, .column {
     display: table-cell;
+  }
+  .menu a {
+    white-space: nowrap;
+  }
+  .triangle {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -8px;
+    width: 0;
+    height: 0;
+    border-bottom: 8px solid white;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    z-index: 1;
   }
 }
 @media (max-width: 1199px) {
@@ -70,6 +90,16 @@ header{
   .menu__level1,
   .menu__navigation-related {
     display: none;
+  }
+  .triangle {
+    display: none;
+  }
+  .menu__icon-container {
+    width:48px;
+    height:48px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
   }
 }
 .menu__user-actions {
@@ -106,19 +136,13 @@ header{
 .scene2, .scene3 {
   display: none;
 }
-.menu__icon-container {
-  width:48px;
-  height:48px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
 
 .menu__product,.menu__subproduct {
   background-color: #8897AA;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .menu__level1,

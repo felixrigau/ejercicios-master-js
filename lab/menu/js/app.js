@@ -70,30 +70,36 @@ var menu = {
 
   eventsDesktop:{
     addEListenerToMenuProductItem:function () {
-      // var menuItems = document.querySelectorAll('.menu__product');
-      // for (var i = 0; i < menuItems.length; i++) {
-      //   var menuItem;
-      //   menuItems[i].addEventListener('mouseover',function (e) {
-      //     if (this.nodeName === 'LI') {
-      //       menuItem = this;
-      //     }else{
-      //       menuItem = this.parentNode;
-      //     }
-      //     var submenuDesktop = this.querySelector('.submenu-desktop');
-      //     var subproductMenuContainer = submenuDesktop.querySelector('.subproduct-menu-container');
-      //     var menuSubproduct = menuItem.querySelectorAll('.menu__subproduct')
-      //     for (var i = 0; i < menuSubproduct.length; i++) {
-      //       subproductMenuContainer.appendChild(menuSubproduct[i].cloneNode(true));
-      //     }
-      //     submenuDesktop.classList.add('visible');
-      //   });
-      //   menuItems[i].addEventListener('mouseout', function (e) {
-      //     var submenuDesktop = this.querySelector('.submenu-desktop');
-      //     var subproductMenuContainer = submenuDesktop.querySelector('.subproduct-menu-container');
-      //     submenuDesktop.classList.remove('visible');
-      //     subproductMenuContainer.innerHTML = '';
-      //   });
-      // }
+      var menuItems = document.querySelectorAll('.menu__product');
+      for (var i = 0; i < menuItems.length; i++) {
+        var menuItem,
+            subMenu,
+            leftPosition,
+            triangle;
+
+        menuItems[i].addEventListener('mouseover',function (e) {
+          menuItem = this;
+          subMenu = menuItem.querySelector('.menu__level1');
+          triangle = menuItem.querySelector('.triangle');
+          leftPosition = menu.eventsDesktop.getSubmenuPosition(menuItem, subMenu);
+          subMenu.style.left = '-'+leftPosition.toString()+'px';
+          triangle.style.left = (leftPosition+menuItem.clientWidth/2).toString()+'px';
+        });
+        // menuItems[i].addEventListener('mouseout', function (e) {
+        //   var submenuDesktop = this.querySelector('.submenu-desktop');
+        //   var subproductMenuContainer = submenuDesktop.querySelector('.subproduct-menu-container');
+        //   submenuDesktop.classList.remove('visible');
+        //   subproductMenuContainer.innerHTML = '';
+        // });
+      }
+    },
+
+    getSubmenuPosition:function (menuItem, subMenu) {
+      var availableRightMargin = (window.innerWidth * 0.99) - menuItem.offsetLeft
+      var subMenuWidth = subMenu.clientWidth
+      halfMenuItemOffeset = (subMenu.clientWidth - menuItem.clientWidth)/2
+      leftOffset = subMenuWidth - availableRightMargin
+      return leftOffset < halfMenuItemOffeset ? halfMenuItemOffeset :leftOffset;
     }
   },
 
