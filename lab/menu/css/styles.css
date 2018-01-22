@@ -50,6 +50,9 @@ header{
   .menu__product:hover .menu__navigation-related{
     display:block;
   }
+  .finanzas.menu__product:hover .menu__navigation-related{
+    display:none;
+  }
   .menu__product:hover .menu__level2{
     display: block;
   }

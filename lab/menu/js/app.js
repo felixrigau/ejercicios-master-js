@@ -85,12 +85,6 @@ var menu = {
           subMenu.style.left = '-'+leftPosition.toString()+'px';
           triangle.style.left = (leftPosition+menuItem.clientWidth/2).toString()+'px';
         });
-        // menuItems[i].addEventListener('mouseout', function (e) {
-        //   var submenuDesktop = this.querySelector('.submenu-desktop');
-        //   var subproductMenuContainer = submenuDesktop.querySelector('.subproduct-menu-container');
-        //   submenuDesktop.classList.remove('visible');
-        //   subproductMenuContainer.innerHTML = '';
-        // });
       }
     },
 
@@ -100,6 +94,24 @@ var menu = {
       halfMenuItemOffeset = (subMenu.clientWidth - menuItem.clientWidth)/2
       leftOffset = subMenuWidth - availableRightMargin
       return leftOffset < halfMenuItemOffeset ? halfMenuItemOffeset :leftOffset;
+    },
+
+    addEListenerLinkToRelated:function () {
+      var linksToRelated = document.querySelectorAll('.link-to-related');
+      for (var i = 0; i < linksToRelated.length; i++) {
+        linksToRelated[i].addEventListener('mouseover',function (e) {
+          var relatedElementsContainer = document.querySelector('.menu__related-elements');
+          var subproductNameText = document.querySelector('.subproduct-related');
+          relatedElementsContainer.innerHTML = '';
+          subproductNameText.innerText = '';
+          var relatedElements = this.parentNode.nextElementSibling.children;
+          var subproductName = this.parentNode.parentNode.querySelector('.productName').innerText;
+          subproductNameText.innerText = subproductName;
+          for (var i = 0; i < relatedElements.length; i++) {
+            relatedElementsContainer.appendChild(relatedElements[i].cloneNode(true));
+          }
+        });
+      }
     }
   },
 
@@ -195,8 +207,6 @@ var menu = {
           //Reset inline style for the menu__scene-container
           document.querySelector('.menu__scene-container').style = '';
           menu.tools.cleanSecundariesSceneAndMenuTopBar();
-        } else {
-
         }
       });
     },
@@ -265,6 +275,7 @@ var menu = {
 (function () {
   menu.tools.isDesktop();
   menu.eventsDesktop.addEListenerToMenuProductItem();
+  menu.eventsDesktop.addEListenerLinkToRelated();
   menu.eventsMovile.addEListenerToNavigationButton();
   menu.eventsMovile.addEListenerToCloseButton();
   menu.eventsMovile.addEListenerToNextButtonFirstScene();
