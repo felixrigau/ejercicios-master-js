@@ -6,9 +6,7 @@ var menu = {
   behavior:{
 
     nextButtonFirstScene:function (event){
-      if (menu.desktop) {
-        window.alert('menu desktop action')
-      } else {
+      if (!menu.desktop) {
         var sceneContainer = menu.tools.getSceneContainer(),
             scene1 = sceneContainer.querySelector('.scene1'),
             scene2 = sceneContainer.querySelector('.scene2'),
@@ -121,6 +119,7 @@ var menu = {
           menuTag = document.querySelector('.menu');
 
       navigationButton.addEventListener('click',function (){
+        menuTag.style.left = window.innerWidth.toString()+'px';
         menuTag.classList.toggle('show');
         menuTag.classList.add('collapsed');
         window.setTimeout(function functionName() {
@@ -203,10 +202,30 @@ var menu = {
     windowResize:function () {
       var menuTag = document.querySelector('.menu');
       window.addEventListener('resize',function functionName() {
+        if (window.innerWidth >= 1200) {
+          menu.desktop = true;
+        } else {
+          menu.desktop = false;
+        }
         if (menu.tools.isDesktop()) {
           //Reset inline style for the menu__scene-container
           document.querySelector('.menu__scene-container').style = '';
           menu.tools.cleanSecundariesSceneAndMenuTopBar();
+        }else{
+          var activeScene = document.querySelector('.active'),
+              scene1 = menu.tools.getSceneContainer().querySelector('.scene1'),
+              scene2 = menu.tools.getSceneContainer().querySelector('.scene2'),
+              scene3 = menu.tools.getSceneContainer().querySelector('.scene3');
+          if (activeScene.classList.contains('scene1')) {
+            menu.tools.getSceneContainer().style.width = window.innerWidth.toString()+'px';
+          } else if (activeScene.classList.contains('scene2')) {
+            menu.tools.getSceneContainer().style.width = (window.innerWidth*2).toString()+'px';
+            menu.tools.getSceneContainer().style.left = '-'+window.innerWidth.toString()+'px';
+          }
+          else {
+            menu.tools.getSceneContainer().style.width = (window.innerWidth*3).toString()+'px';
+            menu.tools.getSceneContainer().style.left = '-'+(window.innerWidth*2).toString()+'px';
+          }
         }
       });
     },
